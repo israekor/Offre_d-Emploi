@@ -26,7 +26,7 @@ app.use("/uploads", express.static("uploads"));
 app.get("/", (req, res) => {
   res.json({
     success: true,
-    message: "💼 TalentBridge API is running",
+    message: "App API is running",
     version: "1.0.0",
     timestamp: new Date().toISOString(),
   });
@@ -75,10 +75,10 @@ app.use((err, req, res, next) => {
 // Démarrage du serveur
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`\n🚀 TalentBridge API démarrée`);
-  console.log(`📡 Port         : ${PORT}`);
-  console.log(`🌍 Environnement: ${process.env.NODE_ENV}`);
-  console.log(`🔗 URL          : http://localhost:${PORT}\n`);
+  console.log(`\n App API démarrée`);
+  console.log(` Port         : ${PORT}`);
+  console.log(` Environnement: ${process.env.NODE_ENV}`);
+  console.log(` URL: http://localhost:${PORT}\n`);
 });
 
 module.exports = app;

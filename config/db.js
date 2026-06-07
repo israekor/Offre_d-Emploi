@@ -7,21 +7,21 @@ const connectDB = async () => {
       serverSelectionTimeoutMS: 5000, // Timeout après 5s si MongoDB injoignable
     });
 
-    console.log(`✅ MongoDB connecté : ${conn.connection.host}`);
-    console.log(`📦 Base de données   : ${conn.connection.name}`);
+    console.log(`MongoDB connecté : ${conn.connection.host}`);
+    console.log(`Base de données   : ${conn.connection.name}`);
   } catch (error) {
-    console.error("❌ Erreur de connexion MongoDB :", error.message);
+    console.error("Erreur de connexion MongoDB :", error.message);
     process.exit(1); // Arrête le serveur si la DB est inaccessible
   }
 };
 
 // Événements de connexion (utile pour le debug)
 mongoose.connection.on("disconnected", () => {
-  console.warn("⚠️  MongoDB déconnecté");
+  console.warn("MongoDB déconnecté");
 });
 
 mongoose.connection.on("reconnected", () => {
-  console.log("🔄 MongoDB reconnecté");
+  console.log("MongoDB reconnecté");
 });
 
 module.exports = connectDB;
