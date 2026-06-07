@@ -1,0 +1,84 @@
+require("dotenv").config();
+
+const express = require("express");
+const cors = require("cors");
+const connectDB = require("./config/db");
+
+// Connexion MongoDB
+connectDB();
+
+// App Express
+const app = express();
+
+// Middlewares globaux
+app.use(cors({
+  origin: process.env.CLIENT_URL || "http://localhost:3000",
+  credentials: true,
+}));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Dossier statique pour les fichiers uploadés (CVs)
+app.use("/uploads", express.static("uploads"));
+
+// Route de santé (health check)
+app.get("/", (req, res) => {
+  res.json({
+    success: true,
+    message: "💼 TalentBridge API is running",
+    version: "1.0.0",
+    timestamp: new Date().toISOString(),
+  });
+});
+
+
+// Middleware : route non trouvée
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `Route ${req.method} ${req.originalUrl} non trouvée`,
+  });
+});
+
+// ─── Middleware : gestion globale des erreurs
+app.use((err, req, res, next) => {
+  console.error("❌ Erreur serveur :", err.stack);
+
+  // Erreur de validation Mongoose
+  if (err.name === "ValidationError") {
+    const messages = Object.values(err.errors).map((e) => e.message);
+    return res.status(400).json({ success: false, message: messages.join(", ") });
+  }
+
+  // Clé dupliquée MongoDB (ex: email déjà utilisé)
+  if (err.code === 11000) {
+    const field = Object.keys(err.keyValue)[0];
+    return res.status(400).json({
+      success: false,
+      message: `La valeur du champ "${field}" existe déjà`,
+    });
+  }
+
+  // Erreur JWT invalide
+  if (err.name === "JsonWebTokenError") {
+    return res.status(401).json({ success: false, message: "Token invalide" });
+  }
+
+  // Erreur par défaut
+  res.status(err.statusCode || 500).json({
+    success: false,
+    message: err.message || "Erreur interne du serveur",
+  });
+});
+
+// Démarrage du serveur
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`\n🚀 TalentBridge API démarrée`);
+  console.log(`📡 Port         : ${PORT}`);
+  console.log(`🌍 Environnement: ${process.env.NODE_ENV}`);
+  console.log(`🔗 URL          : http://localhost:${PORT}\n`);
+});
+
+module.exports = app;
