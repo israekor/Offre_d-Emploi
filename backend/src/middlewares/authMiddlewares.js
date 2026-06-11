@@ -1,0 +1,62 @@
+const jwt=require("jsonwebtoken")
+const dotenv=require('dotenv')
+
+dotenv.config({path:'../../.env'})
+
+
+
+
+
+ const verifyAccessToken=async(req,res,next)=>{
+    const publicRoutes=[
+        '/auth/signin','/auth/signup','/auth/sendcode','/auth/verifycode','/auth/resetpwd'
+    ]
+    if(publicRoutes.includes(req.path)){
+      return  next()
+    }
+    try{
+        const acctok=req.cookies.accessToken
+        if(!acctok){
+            return res.status(421)
+        }
+        const accessSecret=process.env.accessSecret
+        jwt.verify(acctok,accessSecret)
+        return next()
+
+    }catch(err){
+        res.status(421).send("Invalid or expired access token")
+    }
+
+}
+
+
+function callingRefreshToken(req,res){
+    const reftok=req.cookies.refreshToken
+    if(!reftok){
+        console.log("Refresh token est invalide !")
+        return res.status(422).json({message:'Veuillez vous reconnecter !'})
+    }
+    
+    try{
+        const decoded=jwt.verify(reftok,process.env.refreshSecret)
+        const at=generateAccessToken(decoded.id,decoded.role)
+
+        res.cookie('accessToken',at,{
+            httpOnly:true,
+            secure:process.env.node_env==='production',
+            sameSite:'Strict',
+            maxAge:10*60*1000
+        })
+        return res.status(200)
+    }catch(err){
+        console.log("Refresh token is invalid !")
+        res.status(422).json({message:'Session expirée !'})
+
+    }
+
+}
+
+
+module.exports={verifyAccessToken,
+    callingRefreshToken
+}

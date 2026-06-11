@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const cookieParser = require('cookie-parser'); 
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
@@ -12,11 +12,12 @@ const app = express();
 
 // Middlewares globaux
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:3000",
+  origin: process.env.CLIENT_URL || "http://localhost:3000" ||"http://172.25.16.1:3000",
   credentials: true,
 }));
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 // Dossier statique pour les fichiers uploadés (CVs)
@@ -32,6 +33,15 @@ app.get("/", (req, res) => {
   });
 });
 
+
+
+const authRoutes =require('./src/routes/authRoutes')
+app.use("/auth",authRoutes)
+
+// ... après les autres routes
+
+const jobRoutes = require('./src/routes/jobsRoutes');
+app.use('/jobs', jobRoutes);
 
 // Middleware : route non trouvée
 app.use((req, res) => {
@@ -71,6 +81,7 @@ app.use((err, req, res, next) => {
     message: err.message || "Erreur interne du serveur",
   });
 });
+
 
 // Démarrage du serveur
 const PORT = process.env.PORT || 5000;

@@ -2,12 +2,12 @@
 // Exécuté automatiquement au premier démarrage de MongoDB
 // Crée un utilisateur dédié à l'application + les collections
 
-db = db.getSiblingDB("app"); // Se connecter à la base "app" (créée automatiquement si n'existe pas)
+db = db.getSiblingDB("talentbridge"); // Se connecter à la base  (créée automatiquement si n'existe pas)
 
 // Créer un utilisateur avec accès uniquement à la base app
 db.createUser({
-  user: "app_user",
-  pwd: "app_password",
+  user: "talentbridge_user",
+  pwd: "talentbridge_pass",
   roles: [{ role: "readWrite", db: "app" }],
 });
 

@@ -71,8 +71,8 @@ const UserSchema = new mongoose.Schema(
 );
 
 // ─── Index ──────────────────────────────────────────────────
-UserSchema.index({ email: 1 });
-UserSchema.index({ role: 1 });
+/* UserSchema.index({ email: 1 });
+UserSchema.index({ role: 1 }); */
 
 // ─── Middleware : hashage du mot de passe avant save ────────
 UserSchema.pre("save", async function (next) {

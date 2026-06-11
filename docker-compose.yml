@@ -41,6 +41,32 @@ services:
     networks:
       - talentbridge-network
 
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      # Add other backend env variables here (e.g., MONGO_URI, JWT_SECRET)
+    networks:
+      - app-network
+    depends_on:
+      - mongo-express
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"  # Access your React app at http://localhost:8080
+    networks:
+      - app-network
+    depends_on:
+      - backend
+
 volumes:
   mongodb_data:
     name: talentbridge-mongodb-data
