@@ -17,10 +17,11 @@ dotenv.config({path:'../../.env'})
     try{
         const acctok=req.cookies.accessToken
         if(!acctok){
-            return res.status(421)
+            return res.status(421).send("Access token missing")
         }
         const accessSecret=process.env.accessSecret
-        jwt.verify(acctok,accessSecret)
+        const decoded = jwt.verify(acctok,accessSecret)
+        req.user = decoded;
         return next()
 
     }catch(err){
