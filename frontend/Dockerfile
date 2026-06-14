@@ -22,6 +22,9 @@ FROM nginx:1.25-alpine
 # Change "dist" to "build" if you are using an older Create React App setup
 COPY --from=builder /app/build /usr/share/nginx/html
 
+# Copy the Nginx configuration to enable React Router
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Expose port 80 (Nginx default)
 EXPOSE 80
 

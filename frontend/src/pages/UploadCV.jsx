@@ -296,7 +296,7 @@ export default function UploadCV() {
           {/* Navigation Links for Authenticated Users */}
           <div style={{ display: 'flex', gap: 24 }}>
             <Link to="/jobs" style={{ color: '#8CA3BE', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Offres</Link>
-            <Link to="/upload-cv" style={{ color: '#fff', textDecoration: 'none', fontSize: 13, fontWeight: 600 }}>Mon CV</Link>
+            <Link to="/upload-cv" style={{ color: '#fff', textDecoration: 'none', fontSize: 13, fontWeight: 600 }}>Profil</Link>
             <Link to="/my-applications" style={{ color: '#8CA3BE', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Mes candidatures</Link>
           </div>
 

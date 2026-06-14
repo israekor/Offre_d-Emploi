@@ -50,6 +50,9 @@ app.use('/applications', applyRoutes);
 const dashboardRoutes = require('./src/routes/dashboardRoutes');
 app.use('/dashboard', dashboardRoutes);
 
+const recruiterDashboardRoutes = require('./src/routes/recruiterDashboardRoutes');
+app.use('/dashboard', recruiterDashboardRoutes);
+
 // Middleware : route non trouvée
 app.use((req, res) => {
   res.status(404).json({

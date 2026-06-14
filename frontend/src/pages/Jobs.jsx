@@ -132,7 +132,7 @@ export default function Jobs() {
               {localStorage.getItem('userRole') === 'candidate' ? (
                 <>
                   <Link to="/jobs" style={{ color: '#fff', textDecoration: 'none', fontSize: 13, fontWeight: 600 }}>Offres</Link>
-                  <Link to="/upload-cv" style={{ color: '#8CA3BE', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Mon CV</Link>
+                  <Link to="/upload-cv" style={{ color: '#8CA3BE', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Profil</Link>
                   <Link to="/my-applications" style={{ color: '#8CA3BE', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Mes candidatures</Link>
                 </>
               ) : (
@@ -408,7 +408,7 @@ export default function Jobs() {
                   Postuler à l'offre
                 </h3>
                 <p style={{ fontSize: 13, color: '#6b7280', marginTop: 4 }}>
-                  Votre profil et votre CV actuellement enregistrés seront attachés à cette candidature.
+                  Votre profil et vos informations actuellement enregistrées seront attachés à cette candidature.
                 </p>
               </div>
               <button onClick={() => setIsApplyModalOpen(false)} style={{ background: 'none', border: 'none', fontSize: 24, cursor: 'pointer', color: '#9ca3af', fontFamily: 'inherit', padding: 0, lineHeight: 1 }}>
@@ -456,7 +456,7 @@ export default function Jobs() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#6b7280', padding: '12px 14px', background: '#f7f9fc', borderRadius: 8, border: '1px solid #eaecf0', marginBottom: 24 }}>
                   <span>Mon profil JobBoard</span>
                   <Link to="/upload-cv" style={{ color: '#378ADD', fontWeight: 600, textDecoration: 'none' }}>
-                    Modifier mon CV →
+                    Modifier mon Profil →
                   </Link>
                 </div>
 
