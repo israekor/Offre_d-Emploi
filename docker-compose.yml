@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
 
   # MongoDB
@@ -46,24 +48,32 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    container_name: app-backend
+    restart: unless-stopped
     ports:
       - "5000:5000"
     environment:
-      - NODE_ENV=production
-      # Add other backend env variables here (e.g., MONGO_URI, JWT_SECRET)
+      NODE_ENV: production
+      MONGO_URI: ${MONGO_URI}
+      ACCESS_SECRET: ${ACCESS_SECRET}
+      REFRESH_SECRET: ${REFRESH_SECRET}
+      CLIENT_URL: ${CLIENT_URL}
     networks:
-      - app-network
+      - talentbridge-network
     depends_on:
-      - mongo-express
+      mongodb:
+        condition: service_healthy
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    container_name: app-frontend
+    restart: unless-stopped
     ports:
       - "8080:80"  # Access your React app at http://localhost:8080
     networks:
-      - app-network
+      - talentbridge-network
     depends_on:
       - backend
 

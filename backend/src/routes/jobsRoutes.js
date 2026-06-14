@@ -5,10 +5,12 @@ const {
   getJobs, 
   getJobById, 
   updateJob, 
-  deleteJob 
+  deleteJob,
+  searchJobs
 } = require('../controllers/jobsControllers.js');
 
 
+router.get('/search', searchJobs);  // ⚠️ DOIT venir AVANT /:id
 router.get('/', getJobs);
 router.get('/:id', getJobById);
 router.post('/', createJob);

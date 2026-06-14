@@ -5,6 +5,7 @@ import Register from './pages/Register';
 import Jobs from './pages/Jobs';
 import UploadCV from './pages/UploadCV';
 import MyApplication from './pages/MyApplication';
+import CandidateDashboard from './pages/CandidateDashboard';
 import './index.css'
 import RecruiterDashboard from './pages/RecruiterDashboard';
 
@@ -21,6 +22,7 @@ export default function App() {
         <Route path='/uploadcv' element={<UploadCV />} />
         <Route path='/my-applications' element={<MyApplication />} />
         <Route path='/myapplication' element={<MyApplication />} />
+        <Route path='/dashboard' element={<CandidateDashboard />} />
       </Routes>
     </BrowserRouter>
   );

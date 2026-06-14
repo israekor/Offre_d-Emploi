@@ -19,7 +19,7 @@ dotenv.config({path:'../../.env'})
         if(!acctok){
             return res.status(421).send("Access token missing")
         }
-        const accessSecret=process.env.accessSecret
+        const accessSecret=process.env.ACCESS_SECRET
         const decoded = jwt.verify(acctok,accessSecret)
         req.user = decoded;
         return next()
@@ -39,12 +39,12 @@ function callingRefreshToken(req,res){
     }
     
     try{
-        const decoded=jwt.verify(reftok,process.env.refreshSecret)
+        const decoded=jwt.verify(reftok,process.env.REFRESH_SECRET)
         const at=generateAccessToken(decoded.id,decoded.role)
 
         res.cookie('accessToken',at,{
             httpOnly:true,
-            secure:process.env.node_env==='production',
+            secure:process.env.NODE_ENV==='production',
             sameSite:'Strict',
             maxAge:10*60*1000
         })

@@ -20,7 +20,7 @@ FROM nginx:1.25-alpine
 
 # Copy the static build files from Stage 1 to Nginx's default public folder
 # Change "dist" to "build" if you are using an older Create React App setup
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/build /usr/share/nginx/html
 
 # Expose port 80 (Nginx default)
 EXPOSE 80

@@ -10,7 +10,7 @@ const createJob = async (req, res, next) => {
     if(!acctok){
     return res.status(421)
     }
-    const accessSecret=process.env.accessSecret
+    const accessSecret=process.env.ACCESS_SECRET
     const tok= jwt.verify(acctok,accessSecret)
     const id=tok.id
 
@@ -73,7 +73,7 @@ const updateJob = async (req, res, next) => {
     if(!acctok){
     return res.status(421)
     }
-    const accessSecret=process.env.accessSecret
+    const accessSecret=process.env.ACCESS_SECRET
     const tok= jwt.verify(acctok,accessSecret)
     const id=tok.id
 
@@ -108,7 +108,7 @@ const deleteJob = async (req, res, next) => {
     if(!acctok){
     return res.status(421)
     }
-    const accessSecret=process.env.accessSecret
+    const accessSecret=process.env.ACCESS_SECRET
     const tok= jwt.verify(acctok,accessSecret)
     const id=tok.id
 
@@ -133,10 +133,49 @@ const deleteJob = async (req, res, next) => {
   }
 };
 
+
+const searchJobs = async (req, res, next) => {
+  try {
+    const { keyword, location, jobType } = req.query;
+
+    // Construire l'objet filter
+    let filter = { status: 'active' };
+
+    // Filter par keyword (full-text search)
+    if (keyword && keyword.trim()) {
+      filter.$text = { $search: keyword.trim() };
+    }
+
+    // Filter par location (case-insensitive)
+    if (location && location.trim()) {
+      filter.location = { $regex: location.trim(), $options: 'i' };
+    }
+
+    // Filter par contractType (jobType)
+    if (jobType && jobType.trim()) {
+      filter.contractType = jobType.trim();
+    }
+
+    // Exécuter la requête
+    const jobs = await Job.find(filter)
+      .populate('postedBy', 'name email')
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      count: jobs.length,
+      data: jobs
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   createJob,
   getJobs,
   getJobById,
   updateJob,
-  deleteJob
+  deleteJob,
+  searchJobs
 };

@@ -1,13 +1,16 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { getJobs } from '../services/jobs';
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { searchJobs } from '../services/jobs';
 import { logout } from '../services/auth';
 import { applyJob } from '../services/applications';
+import { Link } from "react-router-dom";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [keyword, setKeyword] = useState('');
+  const [location, setLocation] = useState('');
+  const [jobType, setJobType] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
   const [error, setError] = useState('');
   
   // Application modal state
@@ -17,25 +20,47 @@ export default function Jobs() {
   const [applying, setApplying] = useState(false);
   const [applyError, setApplyError] = useState('');
   const [applySuccess, setApplySuccess] = useState(false);
+  const debounceTimer = useRef(null);
 
   const navigate = useNavigate();
   const userName = localStorage.getItem('userName');
 
   const isAuthenticated = () => !!localStorage.getItem('userId');
 
+  // Fonction pour appeler l'API de recherche
+  const performSearch = async (filters) => {
+    try {
+      setIsSearching(true);
+      setError('');
+      const data = await searchJobs(filters);
+      setJobs(data.data || data);
+    } catch (err) {
+      setError("Erreur lors de la recherche d'offres");
+      setJobs([]);
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  // useEffect avec debounce pour la recherche
   useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        const data = await getJobs();
-        setJobs(data.data || data);
-      } catch (err) {
-        setError("Erreur lors du chargement des offres d'emploi");
-      } finally {
-        setLoading(false);
-      }
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
+
+    debounceTimer.current = setTimeout(() => {
+      const filters = {};
+      if (keyword.trim()) filters.keyword = keyword.trim();
+      if (location.trim()) filters.location = location.trim();
+      if (jobType.trim()) filters.jobType = jobType.trim();
+
+      performSearch(filters);
+    }, 300);
+
+    return () => {
+      if (debounceTimer.current) clearTimeout(debounceTimer.current);
     };
-    fetchJobs();
-  }, []);
+  }, [keyword, location, jobType]);
 
   const handleApplyClick = (jobId) => {
     if (!isAuthenticated()) {
@@ -72,33 +97,11 @@ export default function Jobs() {
     finally { localStorage.clear(); window.location.href = '/login'; }
   };
 
-  const filteredJobs = jobs.filter((job) => {
-    const q = searchQuery.toLowerCase().trim();
-    if (!q) return true;
-    return (
-      job.title?.toLowerCase().includes(q) ||
-      job.company?.name?.toLowerCase().includes(q) ||
-      job.location?.toLowerCase().includes(q) ||
-      job.experience?.toLowerCase().includes(q) ||
-      job.skills?.some(s => s.toLowerCase().includes(q))
-    );
-  });
-
-  if (loading) {
-    return (
-      <div style={{ minHeight: '100vh', background: '#f7f9fc', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Inter, system-ui, sans-serif' }}>
-        <p style={{ fontSize: 15, color: '#6b7280' }}>Chargement des offres…</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div style={{ minHeight: '100vh', background: '#f7f9fc', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Inter, system-ui, sans-serif' }}>
-        <p style={{ fontSize: 15, color: '#B91C1C' }}>{error}</p>
-      </div>
-    );
-  }
+  const handleResetFilters = () => {
+    setKeyword('');
+    setLocation('');
+    setJobType('');
+  };
 
   return (
     <div style={{ minHeight: '100vh', background: '#f7f9fc', fontFamily: 'Inter, system-ui, sans-serif' }}>
@@ -149,8 +152,8 @@ export default function Jobs() {
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '40px 2rem' }}>
 
         {/* ── PAGE HEADER ── */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32, flexWrap: 'wrap', gap: 16 }}>
-          <div>
+        <div style={{ marginBottom: 32 }}>
+          <div style={{ marginBottom: 24 }}>
             <p style={{ fontSize: 11, fontWeight: 700, color: '#378ADD', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 6px' }}>
               Espace candidat
             </p>
@@ -159,31 +162,137 @@ export default function Jobs() {
             </h1>
           </div>
 
-          {/* Search */}
-          <div style={{ position: 'relative' }}>
-            <svg style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Poste, entreprise, compétence…"
-              style={{
-                padding: '10px 14px 10px 36px', fontSize: 14,
-                border: '1px solid #d1d5db', borderRadius: 10,
-                outline: 'none', background: '#fff',
-                width: 300, fontFamily: 'inherit', color: '#111',
-                boxSizing: 'border-box',
-              }}
-            />
+          {/* ── SEARCH & FILTER FORM ── */}
+          <div style={{ 
+            background: '#fff', 
+            border: '1px solid #eaecf0', 
+            borderRadius: 16, 
+            padding: '20px', 
+            display: 'flex', 
+            flexDirection: 'column',
+            gap: 16
+          }}>
+            {/* Row 1: Keyword search */}
+            <div style={{ position: 'relative' }}>
+              <label style={{ fontSize: 12, fontWeight: 600, color: '#6b7280', display: 'block', marginBottom: 6 }}>
+                Mot-clé
+              </label>
+              <svg style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', marginTop: 10 }} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input
+                type="text"
+                value={keyword}
+                onChange={e => setKeyword(e.target.value)}
+                placeholder="Ex: developer, designer, react…"
+                style={{
+                  padding: '10px 14px 10px 36px', fontSize: 14,
+                  border: '1px solid #d1d5db', borderRadius: 10,
+                  outline: 'none', background: '#fff',
+                  width: '100%', fontFamily: 'inherit', color: '#111',
+                  boxSizing: 'border-box',
+                }}
+              />
+            </div>
+
+            {/* Row 2: Location & Job Type */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              {/* Location */}
+              <div>
+                <label style={{ fontSize: 12, fontWeight: 600, color: '#6b7280', display: 'block', marginBottom: 6 }}>
+                  Localisation
+                </label>
+                <svg style={{ position: 'absolute', left: 12, top: '58px', pointerEvents: 'none' }} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                </svg>
+                <input
+                  type="text"
+                  value={location}
+                  onChange={e => setLocation(e.target.value)}
+                  placeholder="Ex: Casablanca, Paris…"
+                  style={{
+                    padding: '10px 14px 10px 36px', fontSize: 14,
+                    border: '1px solid #d1d5db', borderRadius: 10,
+                    outline: 'none', background: '#fff',
+                    width: '100%', fontFamily: 'inherit', color: '#111',
+                    boxSizing: 'border-box',
+                  }}
+                />
+              </div>
+
+              {/* Job Type */}
+              <div>
+                <label style={{ fontSize: 12, fontWeight: 600, color: '#6b7280', display: 'block', marginBottom: 6 }}>
+                  Type de contrat
+                </label>
+                <select
+                  value={jobType}
+                  onChange={e => setJobType(e.target.value)}
+                  style={{
+                    padding: '10px 14px', fontSize: 14,
+                    border: '1px solid #d1d5db', borderRadius: 10,
+                    outline: 'none', background: '#fff',
+                    width: '100%', fontFamily: 'inherit', color: '#111',
+                    boxSizing: 'border-box', cursor: 'pointer',
+                  }}
+                >
+                  <option value="">Tous les types</option>
+                  <option value="CDI">CDI</option>
+                  <option value="CDD">CDD</option>
+                  <option value="Stage">Stage</option>
+                  <option value="Freelance">Freelance</option>
+                  <option value="Alternance">Alternance</option>
+                  <option value="Temps partiel">Temps partiel</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Reset button */}
+            {(keyword || location || jobType) && (
+              <button
+                onClick={handleResetFilters}
+                style={{
+                  alignSelf: 'flex-end',
+                  fontSize: 13, color: '#378ADD', fontWeight: 600,
+                  background: 'none', border: 'none', cursor: 'pointer',
+                  fontFamily: 'inherit', textDecoration: 'underline',
+                }}
+              >
+                Réinitialiser les filtres
+              </button>
+            )}
           </div>
         </div>
 
+        {/* ── RESULTS INFO ── */}
+        {!isSearching && jobs.length > 0 && (
+          <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 20, fontWeight: 500 }}>
+            {jobs.length} offre{jobs.length > 1 ? 's' : ''} trouvée{jobs.length > 1 ? 's' : ''}
+          </p>
+        )}
+
+        {/* ── LOADING STATE ── */}
+        {isSearching && (
+          <div style={{ textAlign: 'center', padding: '40px', background: '#fff', borderRadius: 16, border: '1px solid #eaecf0' }}>
+            <div style={{ display: 'inline-block', width: 40, height: 40, borderRadius: '50%', border: '3px solid #e5e7eb', borderTop: '3px solid #378ADD', animation: 'spin 1s linear infinite' }} />
+            <p style={{ fontSize: 14, color: '#6b7280', marginTop: 12, margin: 0 }}>Recherche en cours…</p>
+            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+          </div>
+        )}
+
+        {/* ── ERROR STATE ── */}
+        {error && !isSearching && (
+          <div style={{ background: '#FEE2E2', border: '1px solid #FECACA', borderRadius: 16, padding: '16px', marginBottom: 20 }}>
+            <p style={{ fontSize: 14, color: '#991B1B', margin: 0 }}>
+              ⚠️ {error}
+            </p>
+          </div>
+        )}
+
         {/* ── GRID ── */}
-        {filteredJobs.length > 0 ? (
+        {!isSearching && jobs.length > 0 ? (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 20 }}>
-            {filteredJobs.map(job => (
+            {jobs.map(job => (
               <div key={job._id} style={{
                 background: '#fff', border: '1px solid #eaecf0',
                 borderRadius: 20, padding: '24px',
@@ -261,7 +370,7 @@ export default function Jobs() {
               </div>
             ))}
           </div>
-        ) : (
+        ) : !isSearching ? (
           /* ── EMPTY STATE ── */
           <div style={{ background: '#fff', border: '1px solid #eaecf0', borderRadius: 20, padding: '64px 24px', textAlign: 'center', marginTop: 8 }}>
             <div style={{ width: 48, height: 48, borderRadius: 12, background: '#F3F4F6', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
@@ -270,16 +379,22 @@ export default function Jobs() {
               </svg>
             </div>
             <p style={{ fontSize: 15, color: '#6b7280', margin: '0 0 10px' }}>
-              Aucun résultat pour <strong style={{ color: '#374151' }}>"{searchQuery}"</strong>
+              {keyword || location || jobType ? (
+                <>Aucun résultat pour vos critères</>
+              ) : (
+                <>Aucune offre disponible</>
+              )}
             </p>
-            <button
-              onClick={() => setSearchQuery('')}
-              style={{ fontSize: 13, color: '#378ADD', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
-            >
-              Effacer la recherche
-            </button>
+            {(keyword || location || jobType) && (
+              <button
+                onClick={handleResetFilters}
+                style={{ fontSize: 13, color: '#378ADD', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
+              >
+                Réinitialiser les filtres
+              </button>
+            )}
           </div>
-        )}
+        ) : null}
       </div>
 
       {/* ── APPLICATION MODAL ── */}

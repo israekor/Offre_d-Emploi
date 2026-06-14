@@ -10,7 +10,7 @@ const User = require("../../models/User");
 
 
 const generateAccessToken=(id,role)=>{
-    const accessSecret=process.env.accessSecret
+    const accessSecret=process.env.ACCESS_SECRET;
     return jwt.sign({
         id:id, role:role
     },accessSecret,{
@@ -19,7 +19,7 @@ const generateAccessToken=(id,role)=>{
 }
 
 const generateRefreshToken=(id,role)=>{
-    const refreshSecret=process.env.refreshSecret
+    const refreshSecret=process.env.REFRESH_SECRET;
     const tokenID= bcrypt.hash(refreshSecret,5)
     return jwt.sign({id:id,role:role,tokenID:tokenID},refreshSecret,{
         expiresIn:'7d'
@@ -52,18 +52,20 @@ const signup=async (req,res)=>{
 
 
     const user = await User.create({ name,email,password,role,avatar,phone,location});
+    console.log("BODY:", req.body);
+    console.log("USER:", user);
     const acctok=generateAccessToken(user.id,user.role)
-     const reftok=generateRefreshToken(user.id,user.role)
+    const reftok=generateRefreshToken(user.id,user.role)
 
      res.cookie("accessToken",acctok,{
         httpOnly:true,
-        secure:process.env.node_env==='production',
+        secure:process.env.NODE_ENV==='production',
         sameSite:'Strict',
         maxAge:7*24*60*60*1000
      })
      res.cookie("refreshToken",reftok,{
         httpOnly:true,
-        secure:process.env.node_env==='production',
+        secure:process.env.NODE_ENV==='production',
         sameSite:'Strict',
         maxAge:7*24*60*60*1000
      })
@@ -77,7 +79,8 @@ const signup=async (req,res)=>{
 
     }catch(err){
         res.status(500).json({ 
-        message: 'Error while signing up !' 
+        message: 'Error while signing up !',
+        error: err.message
         }); 
     }
 }
@@ -106,13 +109,13 @@ const signin=async(req,res)=>{
 
      res.cookie("accessToken",acctok,{
         httpOnly:true,
-        secure:process.env.node_env==='production',
+        secure:process.env.NODE_ENV==='production',
         sameSite:'Strict',
         maxAge:10*60*1000
      })
      res.cookie("refreshToken",reftok,{
         httpOnly:true,
-        secure:process.env.node_env==='production',
+        secure:process.env.NODE_ENV==='production',
         sameSite:'Strict',
         maxAge:7*24*60*60*1000
      })

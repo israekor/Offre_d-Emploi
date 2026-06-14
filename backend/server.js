@@ -12,7 +12,7 @@ const app = express();
 
 // Middlewares globaux
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:3000" ||"http://172.25.16.1:3000",
+  origin: process.env.CLIENT_URL || "http://localhost:8080" ||"http://172.25.16.1:3000",
   credentials: true,
 }));
 
@@ -46,6 +46,9 @@ app.use('/cv', cvRoutes);
 
 const applyRoutes = require('./src/routes/apply');
 app.use('/applications', applyRoutes);
+
+const dashboardRoutes = require('./src/routes/dashboardRoutes');
+app.use('/dashboard', dashboardRoutes);
 
 // Middleware : route non trouvée
 app.use((req, res) => {
