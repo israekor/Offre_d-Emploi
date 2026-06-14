@@ -80,9 +80,23 @@ export default function Login() {
         <div style={{ marginBottom: 8 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
             <label style={labelStyle}>Mot de passe</label>
-            <a href="#" style={{ fontSize: 12, color: '#378ADD', textDecoration: 'none' }}>
+            <button
+              type="button"
+              onClick={() => navigate('/forgot')}
+              style={{
+                fontSize: 12,
+                color: '#378ADD',
+                textDecoration: 'none',
+                background: 'none',
+                border: 'none',
+                padding: 0,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}
+              aria-label="Mot de passe oublié"
+            >
               Mot de passe oublié ?
-            </a>
+            </button>
           </div>
           <input
             style={inputStyle}

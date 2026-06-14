@@ -1,13 +1,22 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { getJobs } from '../services/jobs';
 import { logout } from '../services/auth';
+import { applyJob } from '../services/applications';
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  
+  // Application modal state
+  const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
+  const [selectedJobId, setSelectedJobId] = useState(null);
+  const [coverLetter, setCoverLetter] = useState('');
+  const [applying, setApplying] = useState(false);
+  const [applyError, setApplyError] = useState('');
+  const [applySuccess, setApplySuccess] = useState(false);
 
   const navigate = useNavigate();
   const userName = localStorage.getItem('userName');
@@ -29,7 +38,33 @@ export default function Jobs() {
   }, []);
 
   const handleApplyClick = (jobId) => {
-    if (!isAuthenticated()) navigate('/login');
+    if (!isAuthenticated()) {
+      navigate('/login');
+    } else {
+      setSelectedJobId(jobId);
+      setCoverLetter('');
+      setApplyError('');
+      setApplySuccess(false);
+      setIsApplyModalOpen(true);
+    }
+  };
+
+  const handleApplySubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setApplying(true);
+      setApplyError('');
+      await applyJob({ job: selectedJobId, coverLetter });
+      setApplySuccess(true);
+      setTimeout(() => {
+        setIsApplyModalOpen(false);
+        setApplySuccess(false);
+      }, 2000);
+    } catch (err) {
+      setApplyError(err.response?.data?.message || 'Erreur lors de la soumission de votre candidature');
+    } finally {
+      setApplying(false);
+    }
   };
 
   const handleLogoutClick = async () => {
@@ -87,6 +122,22 @@ export default function Jobs() {
               </>
             )}
           </div>
+
+          {/* Navigation Links for Authenticated Users */}
+          {isAuthenticated() && (
+            <div style={{ display: 'flex', gap: 24 }}>
+              {localStorage.getItem('userRole') === 'candidate' ? (
+                <>
+                  <Link to="/jobs" style={{ color: '#fff', textDecoration: 'none', fontSize: 13, fontWeight: 600 }}>Offres</Link>
+                  <Link to="/upload-cv" style={{ color: '#8CA3BE', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Mon CV</Link>
+                  <Link to="/my-applications" style={{ color: '#8CA3BE', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Mes candidatures</Link>
+                </>
+              ) : (
+                <Link to="/recruiter-dashboard" style={{ color: '#8CA3BE', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Espace Recruteur</Link>
+              )}
+            </div>
+          )}
+
           {userName && (
             <button onClick={handleLogoutClick} style={{ fontSize: 13, color: '#8CA3BE', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
               Déconnexion →
@@ -230,6 +281,96 @@ export default function Jobs() {
           </div>
         )}
       </div>
+
+      {/* ── APPLICATION MODAL ── */}
+      {isApplyModalOpen && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '1rem' }}>
+          <div style={{ background: '#fff', borderRadius: 20, width: '100%', maxWidth: 540, padding: '32px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)' }}>
+            
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
+              <div>
+                <h3 style={{ fontSize: 20, fontWeight: 700, color: '#0C1F3C', margin: 0 }}>
+                  Postuler à l'offre
+                </h3>
+                <p style={{ fontSize: 13, color: '#6b7280', marginTop: 4 }}>
+                  Votre profil et votre CV actuellement enregistrés seront attachés à cette candidature.
+                </p>
+              </div>
+              <button onClick={() => setIsApplyModalOpen(false)} style={{ background: 'none', border: 'none', fontSize: 24, cursor: 'pointer', color: '#9ca3af', fontFamily: 'inherit', padding: 0, lineHeight: 1 }}>
+                ×
+              </button>
+            </div>
+
+            {applySuccess ? (
+              <div style={{ textAlign: 'center', padding: '24px 0' }}>
+                <div style={{ width: 48, height: 48, borderRadius: 100, background: '#D1FAE5', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </div>
+                <h4 style={{ fontSize: 16, fontWeight: 700, color: '#065F46', margin: '0 0 4px' }}>Candidature envoyée !</h4>
+                <p style={{ fontSize: 13, color: '#047857', margin: 0 }}>Votre dossier a été transmis avec succès.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleApplySubmit}>
+                {applyError && (
+                  <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: 8, padding: '10px 12px', fontSize: 13, color: '#B91C1C', marginBottom: 16 }}>
+                    {applyError}
+                  </div>
+                )}
+
+                <div style={{ marginBottom: 20 }}>
+                  <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 6 }}>
+                    Lettre de motivation (optionnelle)
+                  </label>
+                  <textarea
+                    rows={6}
+                    value={coverLetter}
+                    onChange={e => setCoverLetter(e.target.value)}
+                    placeholder="Expliquez en quelques mots pourquoi vous êtes le candidat idéal pour ce poste..."
+                    style={{
+                      display: 'block', width: '100%', padding: '10px 14px', fontSize: 14,
+                      color: '#111', background: '#fff', border: '1px solid #d1d5db',
+                      borderRadius: 8, outline: 'none', resize: 'vertical', fontFamily: 'inherit',
+                      boxSizing: 'border-box'
+                    }}
+                    maxLength={3000}
+                  />
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#6b7280', padding: '12px 14px', background: '#f7f9fc', borderRadius: 8, border: '1px solid #eaecf0', marginBottom: 24 }}>
+                  <span>Mon profil JobBoard</span>
+                  <Link to="/upload-cv" style={{ color: '#378ADD', fontWeight: 600, textDecoration: 'none' }}>
+                    Modifier mon CV →
+                  </Link>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12 }}>
+                  <button
+                    type="button"
+                    onClick={() => setIsApplyModalOpen(false)}
+                    style={{ padding: '10px 20px', fontSize: 14, color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={applying}
+                    style={{
+                      padding: '10px 24px', borderRadius: 10, background: '#0C1F3C',
+                      color: '#fff', border: 'none', fontSize: 14, fontWeight: 600,
+                      cursor: 'pointer', fontFamily: 'inherit'
+                    }}
+                  >
+                    {applying ? 'Envoi en cours...' : 'Confirmer ma candidature'}
+                  </button>
+                </div>
+              </form>
+            )}
+
+          </div>
+        </div>
+      )}
     </div>
   );
 }
