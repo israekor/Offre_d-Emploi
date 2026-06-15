@@ -20,7 +20,7 @@ const generateAccessToken=(id,role)=>{
 
 const generateRefreshToken=(id,role)=>{
     const refreshSecret=process.env.REFRESH_SECRET;
-    const tokenID= bcrypt.hash(refreshSecret,5)
+    const tokenID= bcrypt.hashSync(refreshSecret,5)
     return jwt.sign({id:id,role:role,tokenID:tokenID},refreshSecret,{
         expiresIn:'7d'
     })

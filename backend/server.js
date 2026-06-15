@@ -36,22 +36,22 @@ app.get("/", (req, res) => {
 
 
 const authRoutes =require('./src/routes/authRoutes')
-app.use("/auth",authRoutes)
+app.use("/api/auth",authRoutes)
 
 const jobRoutes = require('./src/routes/jobsRoutes');
-app.use('/jobs', jobRoutes);
+app.use('/api/jobs', jobRoutes);
 
 const cvRoutes = require('./src/routes/cv');
-app.use('/cv', cvRoutes);
+app.use('/api/cv', cvRoutes);
 
 const applyRoutes = require('./src/routes/apply');
-app.use('/applications', applyRoutes);
+app.use('/api/applications', applyRoutes);
 
 const dashboardRoutes = require('./src/routes/dashboardRoutes');
-app.use('/dashboard', dashboardRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 const recruiterDashboardRoutes = require('./src/routes/recruiterDashboardRoutes');
-app.use('/dashboard', recruiterDashboardRoutes);
+app.use('/api/dashboard', recruiterDashboardRoutes);
 
 // Middleware : route non trouvée
 app.use((req, res) => {
