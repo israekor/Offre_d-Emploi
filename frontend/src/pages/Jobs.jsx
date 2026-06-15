@@ -104,14 +104,14 @@ export default function Jobs() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f7f9fc', fontFamily: 'Inter, system-ui, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)', fontFamily: 'Inter, system-ui, sans-serif' }}>
 
       {/* ── TOPBAR ── */}
-      <div style={{ background: '#0C1F3C', padding: '0 2rem', position: 'sticky', top: 0, zIndex: 40 }}>
+      <div style={{ background: '#0B0D17', padding: '0 2rem', position: 'sticky', top: 0, zIndex: 40 }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <div onClick={() => navigate('/')}  style={{cursor:'pointer', width: 28, height: 28, borderRadius: 6, background: '#185FA5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#85B7EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <div onClick={() => navigate('/')}  style={{cursor:'pointer', width: 28, height: 28, borderRadius: 6, background: '#5E42F5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
               </svg>
             </div>
@@ -119,8 +119,8 @@ export default function Jobs() {
             {userName && (
               <>
                 <div style={{ width: 1, height: 16, background: 'rgba(255,255,255,0.15)', margin: '0 4px' }} />
-                <span style={{ fontSize: 13, color: '#8CA3BE' }}>
-                  Bonjour, <span style={{ color: '#85B7EB', fontWeight: 600 }}>{userName}</span>
+                <span style={{ fontSize: 13, color: '#A0AAB2' }}>
+                  Bonjour, <span style={{ color: '#FFFFFF', fontWeight: 600 }}>{userName}</span>
                 </span>
               </>
             )}
@@ -132,17 +132,17 @@ export default function Jobs() {
               {localStorage.getItem('userRole') === 'candidate' ? (
                 <>
                   <Link to="/jobs" style={{ color: '#fff', textDecoration: 'none', fontSize: 13, fontWeight: 600 }}>Offres</Link>
-                  <Link to="/upload-cv" style={{ color: '#8CA3BE', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Profil</Link>
-                  <Link to="/my-applications" style={{ color: '#8CA3BE', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Mes candidatures</Link>
+                  <Link to="/upload-cv" style={{ color: '#A0AAB2', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Profil</Link>
+                  <Link to="/my-applications" style={{ color: '#A0AAB2', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Mes candidatures</Link>
                 </>
               ) : (
-                <Link to="/recruiter-dashboard" style={{ color: '#8CA3BE', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Espace Recruteur</Link>
+                <Link to="/recruiter-dashboard" style={{ color: '#A0AAB2', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Espace Recruteur</Link>
               )}
             </div>
           )}
 
           {userName && (
-            <button onClick={handleLogoutClick} style={{ fontSize: 13, color: '#8CA3BE', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
+            <button onClick={handleLogoutClick} style={{ fontSize: 13, color: '#A0AAB2', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
               Déconnexion →
             </button>
           )}
@@ -154,10 +154,10 @@ export default function Jobs() {
         {/* ── PAGE HEADER ── */}
         <div style={{ marginBottom: 32 }}>
           <div style={{ marginBottom: 24 }}>
-            <p style={{ fontSize: 11, fontWeight: 700, color: '#378ADD', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 6px' }}>
+            <p style={{ fontSize: 11, fontWeight: 700, color: '#5E42F5', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 6px' }}>
               Espace candidat
             </p>
-            <h1 style={{ fontSize: 28, fontWeight: 700, color: '#0C1F3C', letterSpacing: '-0.5px', margin: 0 }}>
+            <h1 style={{ fontSize: 28, fontWeight: 700, color: '#0B0D17', letterSpacing: '-0.5px', margin: 0 }}>
               Offres d'emploi
             </h1>
           </div>
@@ -253,7 +253,7 @@ export default function Jobs() {
                 onClick={handleResetFilters}
                 style={{
                   alignSelf: 'flex-end',
-                  fontSize: 13, color: '#378ADD', fontWeight: 600,
+                  fontSize: 13, color: '#5E42F5', fontWeight: 600,
                   background: 'none', border: 'none', cursor: 'pointer',
                   fontFamily: 'inherit', textDecoration: 'underline',
                 }}
@@ -274,7 +274,7 @@ export default function Jobs() {
         {/* ── LOADING STATE ── */}
         {isSearching && (
           <div style={{ textAlign: 'center', padding: '40px', background: '#fff', borderRadius: 16, border: '1px solid #eaecf0' }}>
-            <div style={{ display: 'inline-block', width: 40, height: 40, borderRadius: '50%', border: '3px solid #e5e7eb', borderTop: '3px solid #378ADD', animation: 'spin 1s linear infinite' }} />
+            <div style={{ display: 'inline-block', width: 40, height: 40, borderRadius: '50%', border: '3px solid #e5e7eb', borderTop: '3px solid #5E42F5', animation: 'spin 1s linear infinite' }} />
             <p style={{ fontSize: 14, color: '#6b7280', marginTop: 12, margin: 0 }}>Recherche en cours…</p>
             <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
           </div>
@@ -302,10 +302,10 @@ export default function Jobs() {
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0C1F3C', margin: '0 0 4px', letterSpacing: '-0.2px' }}>
+                      <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0B0D17', margin: '0 0 4px', letterSpacing: '-0.2px' }}>
                         {job.title}
                       </h3>
-                      <p style={{ fontSize: 13, color: '#378ADD', fontWeight: 500, margin: 0 }}>
+                      <p style={{ fontSize: 13, color: '#5E42F5', fontWeight: 500, margin: 0 }}>
                         {job.company?.name || 'Non spécifié'}
                       </p>
                     </div>
@@ -357,7 +357,7 @@ export default function Jobs() {
                     onClick={() => handleApplyClick(job._id)}
                     style={{
                       width: '100%', padding: '11px',
-                      borderRadius: 10, background: '#0C1F3C',
+                      borderRadius: 10, background: '#5E42F5',
                       color: '#fff', border: 'none',
                       fontSize: 14, fontWeight: 600,
                       cursor: 'pointer', fontFamily: 'inherit',
@@ -388,7 +388,7 @@ export default function Jobs() {
             {(keyword || location || jobType) && (
               <button
                 onClick={handleResetFilters}
-                style={{ fontSize: 13, color: '#378ADD', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
+                style={{ fontSize: 13, color: '#5E42F5', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
               >
                 Réinitialiser les filtres
               </button>
@@ -404,7 +404,7 @@ export default function Jobs() {
             
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
               <div>
-                <h3 style={{ fontSize: 20, fontWeight: 700, color: '#0C1F3C', margin: 0 }}>
+                <h3 style={{ fontSize: 20, fontWeight: 700, color: '#0B0D17', margin: 0 }}>
                   Postuler à l'offre
                 </h3>
                 <p style={{ fontSize: 13, color: '#6b7280', marginTop: 4 }}>
@@ -455,7 +455,7 @@ export default function Jobs() {
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: '#6b7280', padding: '12px 14px', background: '#f7f9fc', borderRadius: 8, border: '1px solid #eaecf0', marginBottom: 24 }}>
                   <span>Mon profil JobBoard</span>
-                  <Link to="/upload-cv" style={{ color: '#378ADD', fontWeight: 600, textDecoration: 'none' }}>
+                  <Link to="/upload-cv" style={{ color: '#5E42F5', fontWeight: 600, textDecoration: 'none' }}>
                     Modifier mon Profil →
                   </Link>
                 </div>
@@ -472,7 +472,7 @@ export default function Jobs() {
                     type="submit"
                     disabled={applying}
                     style={{
-                      padding: '10px 24px', borderRadius: 10, background: '#0C1F3C',
+                      padding: '10px 24px', borderRadius: 10, background: '#5E42F5',
                       color: '#fff', border: 'none', fontSize: 14, fontWeight: 600,
                       cursor: 'pointer', fontFamily: 'inherit'
                     }}

@@ -33,18 +33,18 @@ export default function Login() {
         <div onClick={() => navigate('/')} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 36, cursor: 'pointer' }}>
           <div style={{
             width: 32, height: 32, borderRadius: 8,
-            background: '#0C1F3C',
+            background: '#5E42F5',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#378ADD" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
             </svg>
           </div>
-          <span style={{ fontSize: 15, fontWeight: 700, color: '#0C1F3C', letterSpacing: '-0.3px' }}>JobBoard</span>
+          <span style={{ fontSize: 15, fontWeight: 700, color: '#0B0D17', letterSpacing: '-0.3px' }}>JobBoard</span>
         </div>
                 
 
-        <h2 style={{ fontSize: 26, fontWeight: 700, color: '#0C1F3C', letterSpacing: '-0.5px', margin: '0 0 6px' }}>
+        <h2 style={{ fontSize: 26, fontWeight: 700, color: '#0B0D17', letterSpacing: '-0.5px', margin: '0 0 6px' }}>
           Bon retour
         </h2>
         <p style={{ fontSize: 14, color: '#6b7280', margin: '0 0 28px' }}>
@@ -85,7 +85,7 @@ export default function Login() {
               onClick={() => navigate('/forgot')}
               style={{
                 fontSize: 12,
-                color: '#378ADD',
+                color: '#5E42F5',
                 textDecoration: 'none',
                 background: 'none',
                 border: 'none',
@@ -114,7 +114,7 @@ export default function Login() {
 
         <p style={{ textAlign: 'center', fontSize: 13, color: '#9ca3af', marginTop: 24, margin: '24px 0 0' }}>
           Pas encore de compte ?{' '}
-          <Link to="/register" style={{ color: '#378ADD', fontWeight: 500, textDecoration: 'none' }}>
+          <Link to="/register" style={{ color: '#5E42F5', fontWeight: 500, textDecoration: 'none' }}>
             S'inscrire
           </Link>
         </p>
@@ -126,7 +126,7 @@ export default function Login() {
 
 const wrap = {
   minHeight: '100vh',
-  background: '#f7f9fc',
+  background: 'linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -170,7 +170,7 @@ const btnPrimary = {
   marginTop: 20,
   padding: '12px',
   borderRadius: 10,
-  background: '#0C1F3C',
+  background: '#5E42F5',
   color: '#fff',
   border: 'none',
   fontSize: 15,

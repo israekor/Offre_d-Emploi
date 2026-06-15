@@ -102,6 +102,16 @@ const CVSchema = new mongoose.Schema(
       default: null,
     },
 
+    profilePicUrl: {
+      type: String,
+      default: null,
+    },
+
+    coverPicUrl: {
+      type: String,
+      default: null,
+    },
+
     // --- Visibilité du CV ---
     isPublic: {
       type: Boolean,

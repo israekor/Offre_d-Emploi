@@ -52,47 +52,47 @@ function daysAgo(d) {
 
 // ─── Styles inline centralisés ───────────────────────────────────────────────
 const S = {
-  page:       { minHeight: '100vh', background: '#f7f9fc', fontFamily: 'Inter, system-ui, sans-serif' },
+  page:       { minHeight: '100vh', background: 'linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)', fontFamily: 'Inter, system-ui, sans-serif' },
   // Topbar
-  topbar:     { background: '#0C1F3C', padding: '0 2rem', position: 'sticky', top: 0, zIndex: 40 },
+  topbar:     { background: '#0B0D17', padding: '0 2rem', position: 'sticky', top: 0, zIndex: 40 },
   topbarInner:{ maxWidth: 1200, margin: '0 auto', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
-  brandIcon:  { width: 30, height: 30, borderRadius: 8, background: '#185FA5', display: 'flex', alignItems: 'center', justifyContent: 'center' },
-  brandName:  { fontSize: 15, fontWeight: 700, color: '#fff', letterSpacing: '-.3px', cursor: 'pointer' },
+  brandIcon:  { width: 30, height: 30, borderRadius: 8, background: '#5E42F5', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+  brandName:  { fontSize: 15, fontWeight: 700, color: '#FFFFFF', letterSpacing: '-.3px', cursor: 'pointer' },
   divider:    { width: 1, height: 16, background: 'rgba(255,255,255,.12)', margin: '0 6px' },
-  greeting:   { fontSize: 13, color: '#8CA3BE' },
-  greetName:  { color: '#85B7EB', fontWeight: 600 },
-  navLink:    { fontSize: 13, fontWeight: 500, color: '#8CA3BE', textDecoration: 'none' },
+  greeting:   { fontSize: 13, color: '#A0AAB2' },
+  greetName:  { color: '#FFFFFF', fontWeight: 600 },
+  navLink:    { fontSize: 13, fontWeight: 500, color: '#A0AAB2', textDecoration: 'none' },
   navLinkActive:{ fontSize: 13, fontWeight: 600, color: '#fff', textDecoration: 'none' },
-  logoutBtn:  { fontSize: 13, color: '#8CA3BE', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' },
+  logoutBtn:  { fontSize: 13, color: '#A0AAB2', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' },
   // Content
   inner:      { maxWidth: 1200, margin: '0 auto', padding: '40px 2rem 60px' },
-  eyebrow:    { fontSize: 11, fontWeight: 700, color: '#378ADD', textTransform: 'uppercase', letterSpacing: '.1em', margin: '0 0 6px' },
-  pageTitle:  { fontSize: 28, fontWeight: 700, color: '#0C1F3C', letterSpacing: '-.5px', margin: '0 0 4px' },
+  eyebrow:    { fontSize: 11, fontWeight: 700, color: '#5E42F5', textTransform: 'uppercase', letterSpacing: '.1em', margin: '0 0 6px' },
+  pageTitle:  { fontSize: 28, fontWeight: 700, color: '#0B0D17', letterSpacing: '-.5px', margin: '0 0 4px' },
   pageSub:    { fontSize: 14, color: '#6b7280', margin: 0 },
   // Stats grid
   statsGrid:  { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 14, marginBottom: 28 },
-  statCard:   { background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 14, padding: '20px 16px', position: 'relative', overflow: 'hidden' },
-  statAccent: { position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, borderRadius: '0 0 14px 14px' },
+  statCard:   { background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 20, padding: '20px 16px', position: 'relative', overflow: 'hidden' },
+  statAccent: { position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, borderRadius: '0 0 20px 20px' },
   statLabel:  { fontSize: 11, fontWeight: 600, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '.06em', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 },
   statSub:    { fontSize: 11, color: '#9ca3af', marginTop: 6 },
   // Summary bar
-  summaryBar: { background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 14, padding: 20, marginBottom: 28, display: 'flex', alignItems: 'center', gap: 24 },
+  summaryBar: { background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 20, padding: 20, marginBottom: 28, display: 'flex', alignItems: 'center', gap: 24 },
   summaryDivider: { width: 1, height: 40, background: '#f1f5f9', flexShrink: 0 },
-  summaryNum: { fontSize: 20, fontWeight: 700, color: '#0C1F3C', textAlign: 'center' },
+  summaryNum: { fontSize: 20, fontWeight: 700, color: '#0B0D17', textAlign: 'center' },
   summaryLabel:{ fontSize: 11, color: '#9ca3af', marginTop: 2, textAlign: 'center' },
   progressWrap:{ flex: 1 },
   progressBar: { height: 4, borderRadius: 4, background: '#f1f5f9', marginTop: 8, overflow: 'hidden' },
   // Section row
   sectionRow: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14, flexWrap: 'wrap', gap: 10 },
-  sectionTitle:{ fontSize: 15, fontWeight: 600, color: '#0C1F3C' },
+  sectionTitle:{ fontSize: 15, fontWeight: 600, color: '#0B0D17' },
   // Filter pills
   pillsWrap:  { display: 'flex', gap: 6, flexWrap: 'wrap' },
   // Table
-  tableWrap:  { background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 14, overflow: 'hidden' },
+  tableWrap:  { background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 20, overflow: 'hidden' },
   tableHead:  { display: 'grid', gridTemplateColumns: '2.5fr 1.8fr 1.4fr 1.2fr 1fr', padding: '10px 20px', background: '#f8fafc', borderBottom: '0.5px solid #e5e7eb' },
   th:         { fontSize: 11, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '.06em' },
   row:        { display: 'grid', gridTemplateColumns: '2.5fr 1.8fr 1.4fr 1.2fr 1fr', padding: '16px 20px', borderBottom: '0.5px solid #f1f5f9', alignItems: 'center' },
-  jobTitle:   { fontSize: 13, fontWeight: 600, color: '#0C1F3C', lineHeight: 1.3 },
+  jobTitle:   { fontSize: 13, fontWeight: 600, color: '#0B0D17', lineHeight: 1.3 },
   jobContract:{ fontSize: 11, color: '#9ca3af', marginTop: 2, display: 'flex', alignItems: 'center', gap: 4 },
   companyCell:{ display: 'flex', alignItems: 'center', gap: 10 },
   avatar:     { width: 32, height: 32, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0 },
@@ -103,14 +103,14 @@ const S = {
   dateMain:   { fontSize: 12, fontWeight: 500, color: '#6b7280' },
   dateSub:    { fontSize: 11, color: '#9ca3af' },
   // Empty state
-  emptyWrap:  { background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 14, padding: '60px 24px', textAlign: 'center' },
+  emptyWrap:  { background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 20, padding: '60px 24px', textAlign: 'center' },
   emptyIcon:  { width: 56, height: 56, borderRadius: 14, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' },
   emptyTitle: { fontSize: 15, fontWeight: 600, color: '#374151', margin: '0 0 6px' },
   emptySub:   { fontSize: 13, color: '#9ca3af', margin: '0 0 20px' },
-  ctaBtn:     { display: 'inline-flex', alignItems: 'center', gap: 6, padding: '9px 18px', background: '#0C1F3C', color: '#fff', borderRadius: 8, fontSize: 13, fontWeight: 600, border: 'none', cursor: 'pointer', fontFamily: 'inherit' },
+  ctaBtn:     { display: 'inline-flex', alignItems: 'center', gap: 6, padding: '9px 18px', background: '#5E42F5', color: '#fff', borderRadius: 8, fontSize: 13, fontWeight: 600, border: 'none', cursor: 'pointer', fontFamily: 'inherit' },
   // Loader
-  loaderWrap: { minHeight: '100vh', background: '#f7f9fc', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Inter, system-ui, sans-serif' },
-  spinner:    { display: 'inline-block', width: 36, height: 36, borderRadius: '50%', border: '3px solid #e5e7eb', borderTop: '3px solid #378ADD', animation: 'spin 1s linear infinite' },
+  loaderWrap: { minHeight: '100vh', background: 'linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Inter, system-ui, sans-serif' },
+  spinner:    { display: 'inline-block', width: 36, height: 36, borderRadius: '50%', border: '3px solid #e5e7eb', borderTop: '3px solid #5E42F5', animation: 'spin 1s linear infinite' },
 };
 
 // ─── Pill de filtre ───────────────────────────────────────────────────────────
@@ -122,7 +122,7 @@ function FilterPill({ status, label, count, selected, onClick }) {
     padding: '6px 14px', borderRadius: 20, fontSize: 12, fontWeight: 600,
     border: `1px solid ${isAll ? '#d1d5db' : cfg.dot}`,
     cursor: 'pointer', fontFamily: 'inherit', transition: 'all .15s',
-    background: active ? (isAll ? '#0C1F3C' : cfg.bg) : '#fff',
+    background: active ? (isAll ? '#0B0D17' : cfg.bg) : '#fff',
     color: active ? (isAll ? '#fff' : cfg.color) : (isAll ? '#374151' : cfg.dot),
   };
   return (
@@ -141,7 +141,7 @@ function StatCard({ icon, label, value, sub, accentColor, valueColor }) {
         <i className={`ti ${icon}`} aria-hidden="true" style={{ fontSize: 14 }} />
         {label}
       </div>
-      <div style={{ fontSize: 30, fontWeight: 700, letterSpacing: '-1px', lineHeight: 1, color: valueColor || '#0C1F3C' }}>
+      <div style={{ fontSize: 30, fontWeight: 700, letterSpacing: '-1px', lineHeight: 1, color: valueColor || '#0B0D17' }}>
         {value}
       </div>
       <div style={S.statSub}>{sub}</div>
@@ -305,7 +305,9 @@ export default function CandidateDashboard() {
           {/* Brand + greeting */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <div style={S.brandIcon} onClick={() => navigate('/')}>
-              <i className="ti ti-briefcase" style={{ fontSize: 15, color: '#85B7EB' }} aria-hidden="true" />
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+              </svg>
             </div>
             <span style={S.brandName} onClick={() => navigate('/')}>JobBoard</span>
             {userName && (
@@ -363,7 +365,7 @@ export default function CandidateDashboard() {
 
         {/* ── STATS ── */}
         <div style={S.statsGrid}>
-          <StatCard icon="ti-files"        label="Total"      value={computedStats.total}     sub="Toutes candidatures"    accentColor="#378ADD" valueColor="#0C1F3C" />
+          <StatCard icon="ti-files"        label="Total"      value={computedStats.total}     sub="Toutes candidatures"    accentColor="#5E42F5" valueColor="#0B0D17" />
           <StatCard icon="ti-clock"        label="En attente" value={computedStats.pending}    sub="En cours d'examen"     accentColor="#D97706" valueColor="#D97706" />
           <StatCard icon="ti-microphone"   label="Entretiens" value={computedStats.interview}  sub="À venir"               accentColor="#7C3AED" valueColor="#7C3AED" />
           <StatCard icon="ti-circle-check" label="Acceptées"  value={computedStats.accepted}   sub="Félicitations !"       accentColor="#059669" valueColor="#059669" />
@@ -375,10 +377,10 @@ export default function CandidateDashboard() {
           <div style={S.progressWrap}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>Taux de réponse</span>
-              <span style={{ fontSize: 13, fontWeight: 700, color: '#378ADD' }}>{responseRate}%</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#5E42F5' }}>{responseRate}%</span>
             </div>
             <div style={S.progressBar}>
-              <div style={{ height: '100%', width: `${responseRate}%`, background: '#378ADD', borderRadius: 4, transition: 'width .4s ease' }} />
+              <div style={{ height: '100%', width: `${responseRate}%`, background: '#5E42F5', borderRadius: 4, transition: 'width .4s ease' }} />
             </div>
             <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 5 }}>
               {computedStats.total - computedStats.pending} réponses sur {computedStats.total} candidatures
@@ -402,7 +404,7 @@ export default function CandidateDashboard() {
           <div style={S.summaryDivider} />
 
           <div>
-            <div style={{ ...S.summaryNum, color: '#0C1F3C' }}>{computedStats.accepted}</div>
+            <div style={{ ...S.summaryNum, color: '#0B0D17' }}>{computedStats.accepted}</div>
             <div style={S.summaryLabel}>Offres reçues</div>
           </div>
         </div>

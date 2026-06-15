@@ -3,7 +3,7 @@ import axios from 'axios';
 // Create a unified instance used across the entire application
 const apiClient = axios.create({
   // Use http://localhost:5000 to match your node server port consistently
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000', 
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api', 
   withCredentials: true
 });
 

@@ -59,34 +59,34 @@ function daysAgo(d) {
 
 // ─── Styles ───────────────────────────────────────────────────────────────────
 const S = {
-  page:        { minHeight: '100vh', background: '#f7f9fc', fontFamily: 'Inter, system-ui, sans-serif' },
-  topbar:      { background: '#0C1F3C', padding: '0 2rem', position: 'sticky', top: 0, zIndex: 40 },
+  page:        { minHeight: '100vh', background: 'linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)', fontFamily: 'Inter, system-ui, sans-serif' },
+  topbar:      { background: '#0B0D17', padding: '0 2rem', position: 'sticky', top: 0, zIndex: 40 },
   topbarInner: { maxWidth: 1200, margin: '0 auto', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
-  brandIcon:   { width: 30, height: 30, borderRadius: 8, background: '#185FA5', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' },
+  brandIcon:   { width: 30, height: 30, borderRadius: 8, background: '#5E42F5', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' },
   brandName:   { fontSize: 15, fontWeight: 700, color: '#fff', letterSpacing: '-.3px', cursor: 'pointer' },
   divider:     { width: 1, height: 16, background: 'rgba(255,255,255,.12)', margin: '0 6px' },
-  roleTag:     { fontSize: 11, fontWeight: 700, color: '#85B7EB', background: 'rgba(133,183,235,.12)', padding: '3px 8px', borderRadius: 4, letterSpacing: '.04em', textTransform: 'uppercase' },
-  logoutBtn:   { fontSize: 13, color: '#8CA3BE', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 5 },
+  roleTag:     { fontSize: 11, fontWeight: 700, color: '#FFFFFF', background: 'rgba(255,255,255,.12)', padding: '3px 8px', borderRadius: 4, letterSpacing: '.04em', textTransform: 'uppercase' },
+  logoutBtn:   { fontSize: 13, color: '#A0AAB2', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 5 },
   inner:       { maxWidth: 1200, margin: '0 auto', padding: '40px 2rem 60px' },
-  eyebrow:     { fontSize: 11, fontWeight: 700, color: '#378ADD', textTransform: 'uppercase', letterSpacing: '.1em', margin: '0 0 6px' },
-  pageTitle:   { fontSize: 28, fontWeight: 700, color: '#0C1F3C', letterSpacing: '-.5px', margin: '0 0 4px' },
+  eyebrow:     { fontSize: 11, fontWeight: 700, color: '#5E42F5', textTransform: 'uppercase', letterSpacing: '.1em', margin: '0 0 6px' },
+  pageTitle:   { fontSize: 28, fontWeight: 700, color: '#0B0D17', letterSpacing: '-.5px', margin: '0 0 4px' },
   pageSub:     { fontSize: 14, color: '#6b7280', margin: 0 },
   // Stats
   statsGrid:   { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 14, marginBottom: 28 },
-  statCard:    { background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 14, padding: '20px 16px', position: 'relative', overflow: 'hidden' },
-  statAccent:  { position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, borderRadius: '0 0 14px 14px' },
+  statCard:    { background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 20, padding: '20px 16px', position: 'relative', overflow: 'hidden' },
+  statAccent:  { position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, borderRadius: '0 0 20px 20px' },
   statLabel:   { fontSize: 11, fontWeight: 600, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '.06em', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 },
   statSub:     { fontSize: 11, color: '#9ca3af', marginTop: 6 },
   // Tabs
   tabsWrap:    { display: 'flex', gap: 4, marginBottom: 32, borderBottom: '1px solid #e5e7eb', paddingBottom: 0 },
   // Tableaux
-  tableWrap:   { background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 14, overflow: 'hidden' },
+  tableWrap:   { background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 20, overflow: 'hidden' },
   th:          { fontSize: 11, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '.06em', padding: '11px 18px', textAlign: 'left', background: '#f8fafc', borderBottom: '0.5px solid #e5e7eb' },
   td:          { padding: '15px 18px', verticalAlign: 'middle' },
   badge:       { display: 'inline-flex', alignItems: 'center', gap: 5, padding: '4px 10px', borderRadius: 20, fontSize: 11, fontWeight: 700, whiteSpace: 'nowrap' },
   dot:         { width: 6, height: 6, borderRadius: '50%', flexShrink: 0 },
   // Btns
-  btnPrimary:  { display: 'inline-flex', alignItems: 'center', gap: 7, padding: '10px 20px', borderRadius: 10, background: '#0C1F3C', color: '#fff', border: 'none', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' },
+  btnPrimary:  { display: 'inline-flex', alignItems: 'center', gap: 7, padding: '10px 20px', borderRadius: 10, background: '#5E42F5', color: '#fff', border: 'none', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' },
   btnEdit:     { display: 'inline-flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 8, background: '#E6F1FB', color: '#0C447C', border: '0.5px solid #B5D4F4', fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' },
   btnDanger:   { display: 'inline-flex', alignItems: 'center', gap: 5, padding: '6px 12px', borderRadius: 8, background: '#FEF2F2', color: '#B91C1C', border: '0.5px solid #FECACA', fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' },
   // Modal
@@ -95,7 +95,7 @@ const S = {
   label:       { display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 6 },
   input:       { display: 'block', width: '100%', padding: '10px 14px', fontSize: 13, color: '#111', background: '#fff', border: '1px solid #d1d5db', borderRadius: 8, outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit' },
   // Empty
-  emptyCard:   { background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 14, padding: '60px 24px', textAlign: 'center' },
+  emptyCard:   { background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 20, padding: '60px 24px', textAlign: 'center' },
   emptyIcon:   { width: 56, height: 56, borderRadius: 14, background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' },
 };
 
@@ -108,7 +108,7 @@ function StatCard({ icon, label, value, sub, accentColor, valueColor }) {
         <i className={`ti ${icon}`} aria-hidden="true" style={{ fontSize: 14 }} />
         {label}
       </div>
-      <div style={{ fontSize: 30, fontWeight: 700, letterSpacing: '-1px', lineHeight: 1, color: valueColor || '#0C1F3C' }}>
+      <div style={{ fontSize: 30, fontWeight: 700, letterSpacing: '-1px', lineHeight: 1, color: valueColor || '#0B0D17' }}>
         {value ?? '—'}
       </div>
       <div style={S.statSub}>{sub}</div>
@@ -125,10 +125,10 @@ function TabButton({ id, icon, label, active, onClick }) {
         padding: '12px 18px',
         fontSize: 13,
         fontWeight: active ? 600 : 500,
-        color: active ? '#0C1F3C' : '#9ca3af',
+        color: active ? '#0B0D17' : '#9ca3af',
         background: 'none',
         border: 'none',
-        borderBottom: active ? '2px solid #378ADD' : '2px solid transparent',
+        borderBottom: active ? '2px solid #5E42F5' : '2px solid transparent',
         cursor: 'pointer',
         fontFamily: 'inherit',
         marginBottom: -1,
@@ -312,7 +312,9 @@ export default function RecruiterDashboard() {
         <div style={S.topbarInner}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <div style={S.brandIcon} onClick={() => navigate('/')}>
-              <i className="ti ti-briefcase" style={{ fontSize: 15, color: '#85B7EB' }} aria-hidden="true" />
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+              </svg>
             </div>
             <span style={S.brandName} onClick={() => navigate('/')}>JobBoard</span>
             <div style={S.divider} />
@@ -320,8 +322,8 @@ export default function RecruiterDashboard() {
             {userName && (
               <>
                 <div style={S.divider} />
-                <span style={{ fontSize: 13, color: '#8CA3BE' }}>
-                  <span style={{ color: '#85B7EB', fontWeight: 600 }}>{userName}</span>
+                <span style={{ fontSize: 13, color: '#A0AAB2' }}>
+                  <span style={{ color: '#FFFFFF', fontWeight: 600 }}>{userName}</span>
                 </span>
               </>
             )}
@@ -361,7 +363,7 @@ export default function RecruiterDashboard() {
 
         {/* ── STATS CARDS ── */}
         <div style={S.statsGrid}>
-          <StatCard icon="ti-clipboard-list"  label="Offres publiées"   value={stats?.totalJobs}               sub="Annonces actives"      accentColor="#378ADD" valueColor="#0C1F3C" />
+          <StatCard icon="ti-clipboard-list"  label="Offres publiées"   value={stats?.totalJobs}               sub="Annonces actives"      accentColor="#5E42F5" valueColor="#0B0D17" />
           <StatCard icon="ti-inbox"           label="Candidatures"      value={totalApps}                      sub="Reçues au total"        accentColor="#10B981" valueColor="#0C1F3C" />
           <StatCard icon="ti-clock"           label="En attente"        value={appsByStatus.pending}            sub="À examiner"            accentColor="#D97706" valueColor="#D97706" />
           <StatCard icon="ti-microphone"      label="Entretiens"        value={appsByStatus.interview}          sub="Planifiés"             accentColor="#7C3AED" valueColor="#7C3AED" />
@@ -380,7 +382,7 @@ export default function RecruiterDashboard() {
         {activeTab === 'overview' && stats && (
           <div>
             {/* Barre de synthèse */}
-            <div style={{ background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 14, padding: 20, marginBottom: 24, display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
+            <div style={{ background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 20, padding: 20, marginBottom: 24, display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
               <div style={{ flex: 1, minWidth: 200 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
                   <span style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>Taux de conversion</span>
@@ -395,7 +397,7 @@ export default function RecruiterDashboard() {
               </div>
               <div style={{ width: 1, height: 40, background: '#f1f5f9', flexShrink: 0 }} />
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: 20, fontWeight: 700, color: '#378ADD' }}>{stats.totalJobs || 0}</div>
+                <div style={{ fontSize: 20, fontWeight: 700, color: '#5E42F5' }}>{stats.totalJobs || 0}</div>
                 <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>Offres actives</div>
               </div>
               <div style={{ width: 1, height: 40, background: '#f1f5f9', flexShrink: 0 }} />
@@ -412,7 +414,7 @@ export default function RecruiterDashboard() {
 
             {/* Performance par offre */}
             {stats.applicationsByJob?.length > 0 ? (
-              <div style={{ background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 14, overflow: 'hidden' }}>
+              <div style={{ background: '#fff', border: '0.5px solid #e5e7eb', borderRadius: 20, overflow: 'hidden' }}>
                 <div style={{ padding: '18px 20px', borderBottom: '0.5px solid #e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
                     <p style={{ fontSize: 14, fontWeight: 600, color: '#0C1F3C', margin: 0 }}>Performance par offre</p>
@@ -442,7 +444,7 @@ export default function RecruiterDashboard() {
                           </div>
                         </div>
                         <div style={{ height: 4, borderRadius: 4, background: '#f1f5f9', overflow: 'hidden' }}>
-                          <div style={{ height: '100%', width: `${pct}%`, background: '#378ADD', borderRadius: 4, transition: 'width .5s ease' }} />
+                          <div style={{ height: '100%', width: `${pct}%`, background: '#5E42F5', borderRadius: 4, transition: 'width .5s ease' }} />
                         </div>
                       </div>
                     );
@@ -550,7 +552,7 @@ export default function RecruiterDashboard() {
                                 {av.initials}
                               </div>
                               <div>
-                                <div style={{ fontSize: 13, fontWeight: 600, color: '#0C1F3C' }}>
+                                <div style={{ fontSize: 13, fontWeight: 600, color: '#0B0D17' }}>
                                   {app.candidate?.firstName} {app.candidate?.lastName}
                                 </div>
                                 <div style={{ fontSize: 11, color: '#9ca3af' }}>{app.candidate?.email}</div>
@@ -633,7 +635,7 @@ export default function RecruiterDashboard() {
                           onMouseLeave={() => setHoveredRow(null)}
                         >
                           <td style={S.td}>
-                            <div style={{ fontSize: 13, fontWeight: 600, color: '#0C1F3C' }}>{job.title}</div>
+                            <div style={{ fontSize: 13, fontWeight: 600, color: '#0B0D17' }}>{job.title}</div>
                             <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2, display: 'flex', alignItems: 'center', gap: 4 }}>
                               <i className="ti ti-building" style={{ fontSize: 11 }} aria-hidden="true" />
                               {job.company?.name}
@@ -658,7 +660,7 @@ export default function RecruiterDashboard() {
                           </td>
                           <td style={S.td}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                              <span style={{ fontSize: 18, fontWeight: 700, color: '#378ADD' }}>{count}</span>
+                              <span style={{ fontSize: 18, fontWeight: 700, color: '#5E42F5' }}>{count}</span>
                               <span style={{ fontSize: 11, color: '#9ca3af' }}>candidature{count !== 1 ? 's' : ''}</span>
                             </div>
                           </td>
@@ -694,10 +696,10 @@ export default function RecruiterDashboard() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 28 }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
-                  <div style={{ width: 34, height: 34, borderRadius: 9, background: '#E6F1FB', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <i className={editingJobId ? 'ti ti-edit' : 'ti ti-plus'} style={{ fontSize: 16, color: '#185FA5' }} aria-hidden="true" />
+                  <div style={{ width: 34, height: 34, borderRadius: 9, background: '#F0EEFE', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <i className={editingJobId ? 'ti ti-edit' : 'ti ti-plus'} style={{ fontSize: 16, color: '#5E42F5' }} aria-hidden="true" />
                   </div>
-                  <h2 style={{ fontSize: 18, fontWeight: 700, color: '#0C1F3C', letterSpacing: '-.3px', margin: 0 }}>
+                  <h2 style={{ fontSize: 18, fontWeight: 700, color: '#0B0D17', letterSpacing: '-.3px', margin: 0 }}>
                     {editingJobId ? "Modifier l'offre" : 'Nouvelle offre'}
                   </h2>
                 </div>

@@ -46,17 +46,17 @@ export default function Register() {
       <div onClick={() => navigate('/')} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 36, cursor: 'pointer' }}>
         <div style={{
           width: 32, height: 32, borderRadius: 8,
-          background: '#0C1F3C',
+          background: '#5E42F5',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#378ADD" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
           </svg>
         </div>
-        <span style={{ fontSize: 15, fontWeight: 700, color: '#0C1F3C', letterSpacing: '-0.3px' }}>JobBoard</span>
+        <span style={{ fontSize: 15, fontWeight: 700, color: '#0B0D17', letterSpacing: '-0.3px' }}>JobBoard</span>
       </div>
 
-        <h2 style={{ fontSize: 26, fontWeight: 700, color: '#0C1F3C', letterSpacing: '-0.5px', margin: '0 0 6px' }}>
+        <h2 style={{ fontSize: 26, fontWeight: 700, color: '#0B0D17', letterSpacing: '-0.5px', margin: '0 0 6px' }}>
           Créer un compte
         </h2>
         <p style={{ fontSize: 14, color: '#6b7280', margin: '0 0 28px' }}>
@@ -121,8 +121,8 @@ export default function Register() {
               <label key={opt.value} style={{
                 display: 'flex', flexDirection: 'column', gap: 2,
                 padding: '12px 14px', borderRadius: 10, cursor: 'pointer',
-                border: form.role === opt.value ? '2px solid #378ADD' : '1px solid #d1d5db',
-                background: form.role === opt.value ? '#E6F1FB' : '#fff',
+                border: form.role === opt.value ? '2px solid #5E42F5' : '1px solid #d1d5db',
+                background: form.role === opt.value ? '#F0EEFE' : '#fff',
                 transition: 'all 0.15s',
               }}>
                 <input
@@ -131,10 +131,10 @@ export default function Register() {
                   onChange={set('role')}
                   style={{ display: 'none' }}
                 />
-                <span style={{ fontSize: 13, fontWeight: 700, color: form.role === opt.value ? '#0C447C' : '#374151' }}>
+                <span style={{ fontSize: 13, fontWeight: 700, color: form.role === opt.value ? '#5E42F5' : '#374151' }}>
                   {opt.label}
                 </span>
-                <span style={{ fontSize: 11, color: form.role === opt.value ? '#185FA5' : '#9ca3af' }}>
+                <span style={{ fontSize: 11, color: form.role === opt.value ? '#5E42F5' : '#9ca3af' }}>
                   {opt.sub}
                 </span>
               </label>
@@ -148,7 +148,7 @@ export default function Register() {
 
         <p style={{ textAlign: 'center', fontSize: 13, color: '#9ca3af', margin: '20px 0 0' }}>
           Déjà un compte ?{' '}
-          <Link to="/login" style={{ color: '#378ADD', fontWeight: 500, textDecoration: 'none' }}>
+          <Link to="/login" style={{ color: '#5E42F5', fontWeight: 500, textDecoration: 'none' }}>
             Se connecter
           </Link>
         </p>
@@ -160,7 +160,7 @@ export default function Register() {
 
 const wrap = {
   minHeight: '100vh',
-  background: '#f7f9fc',
+  background: 'linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -204,7 +204,7 @@ const btnPrimary = {
   marginTop: 20,
   padding: '12px',
   borderRadius: 10,
-  background: '#0C1F3C',
+  background: '#5E42F5',
   color: '#fff',
   border: 'none',
   fontSize: 15,

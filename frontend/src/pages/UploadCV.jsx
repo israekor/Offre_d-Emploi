@@ -13,13 +13,17 @@ export default function UploadCV() {
     languages: [],
     links: { linkedin: '', github: '', portfolio: '' },
     fileName: '',
-    fileUrl: ''
+    fileUrl: '',
+    profilePicUrl: '',
+    coverPicUrl: ''
   });
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState({ text: '', type: '' });
   const [file, setFile] = useState(null);
+  const [profilePicFile, setProfilePicFile] = useState(null);
+  const [coverPicFile, setCoverPicFile] = useState(null);
 
   // Editor states for sub-items
   const [newExp, setNewExp] = useState({ title: '', company: '', location: '', startDate: '', endDate: '', isCurrent: false, description: '' });
@@ -35,6 +39,8 @@ export default function UploadCV() {
   const [softInput, setSoftInput] = useState('');
 
   const fileInputRef = useRef(null);
+  const profilePicRef = useRef(null);
+  const coverPicRef = useRef(null);
   const navigate = useNavigate();
   const userName = localStorage.getItem('userName');
   
@@ -63,7 +69,9 @@ export default function UploadCV() {
           languages: data.languages || [],
           links: data.links || { linkedin: '', github: '', portfolio: '' },
           fileName: data.fileName || '',
-          fileUrl: data.fileUrl || ''
+          fileUrl: data.fileUrl || '',
+          profilePicUrl: data.profilePicUrl || '',
+          coverPicUrl: data.coverPicUrl || ''
         });
       }
     } catch (err) {
@@ -208,6 +216,18 @@ export default function UploadCV() {
     }
   };
 
+  const handleProfilePicChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setProfilePicFile(e.target.files[0]);
+    }
+  };
+
+  const handleCoverPicChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setCoverPicFile(e.target.files[0]);
+    }
+  };
+
   const triggerFileSelect = () => {
     fileInputRef.current.click();
   };
@@ -222,6 +242,12 @@ export default function UploadCV() {
       const formData = new FormData();
       if (file) {
         formData.append('cvFile', file);
+      }
+      if (profilePicFile) {
+        formData.append('profilePic', profilePicFile);
+      }
+      if (coverPicFile) {
+        formData.append('coverPic', coverPicFile);
       }
       formData.append('headline', cvData.headline);
       formData.append('summary', cvData.summary);
@@ -242,9 +268,13 @@ export default function UploadCV() {
           languages: updated.languages || [],
           links: updated.links || { linkedin: '', github: '', portfolio: '' },
           fileName: updated.fileName || '',
-          fileUrl: updated.fileUrl || ''
+          fileUrl: updated.fileUrl || '',
+          profilePicUrl: updated.profilePicUrl || '',
+          coverPicUrl: updated.coverPicUrl || ''
         });
         setFile(null);
+        setProfilePicFile(null);
+        setCoverPicFile(null);
         setMessage({ text: 'Votre CV et profil ont été enregistrés avec succès.', type: 'success' });
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
@@ -271,14 +301,14 @@ export default function UploadCV() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f7f9fc', fontFamily: 'Inter, system-ui, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)', fontFamily: 'Inter, system-ui, sans-serif' }}>
       
       {/* ── TOPBAR ── */}
-      <div style={{ background: '#0C1F3C', padding: '0 2rem', position: 'sticky', top: 0, zIndex: 40 }}>
+      <div style={{ background: '#0B0D17', padding: '0 2rem', position: 'sticky', top: 0, zIndex: 40 }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <div onClick={() => navigate('/')} style={{ cursor: 'pointer', width: 28, height: 28, borderRadius: 6, background: '#185FA5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#85B7EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <div onClick={() => navigate('/')} style={{ cursor: 'pointer', width: 28, height: 28, borderRadius: 6, background: '#5E42F5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
               </svg>
             </div>
@@ -286,8 +316,8 @@ export default function UploadCV() {
             {userName && (
               <>
                 <div style={{ width: 1, height: 16, background: 'rgba(255,255,255,0.15)', margin: '0 4px' }} />
-                <span style={{ fontSize: 13, color: '#8CA3BE' }}>
-                  Bonjour, <span style={{ color: '#85B7EB', fontWeight: 600 }}>{userName}</span>
+                <span style={{ fontSize: 13, color: '#A0AAB2' }}>
+                  Bonjour, <span style={{ color: '#FFFFFF', fontWeight: 600 }}>{userName}</span>
                 </span>
               </>
             )}
@@ -295,9 +325,9 @@ export default function UploadCV() {
 
           {/* Navigation Links for Authenticated Users */}
           <div style={{ display: 'flex', gap: 24 }}>
-            <Link to="/jobs" style={{ color: '#8CA3BE', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Offres</Link>
+            <Link to="/jobs" style={{ color: '#A0AAB2', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Offres</Link>
             <Link to="/upload-cv" style={{ color: '#fff', textDecoration: 'none', fontSize: 13, fontWeight: 600 }}>Profil</Link>
-            <Link to="/my-applications" style={{ color: '#8CA3BE', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Mes candidatures</Link>
+            <Link to="/my-applications" style={{ color: '#A0AAB2', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Mes candidatures</Link>
           </div>
 
           {userName && (
@@ -310,14 +340,63 @@ export default function UploadCV() {
 
       <div style={{ maxWidth: 1000, margin: '0 auto', padding: '40px 2rem' }}>
         
-        {/* ── HEADER ── */}
+        {/* ── PROFILE HEADER (LINKEDIN STYLE) ── */}
+        <div style={{ background: '#fff', borderRadius: 20, overflow: 'hidden', border: '1px solid #eaecf0', marginBottom: 32, position: 'relative' }}>
+          {/* Cover Image */}
+          <div 
+            onClick={() => coverPicRef.current.click()}
+            style={{ 
+            height: 180, 
+            background: coverPicFile ? `url(${URL.createObjectURL(coverPicFile)})` : cvData.coverPicUrl ? `url(${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${cvData.coverPicUrl})` : 'linear-gradient(135deg, #FF9A9E 0%, #FECFEF 99%, #FECFEF 100%)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            cursor: 'pointer'
+          }}>
+            <div style={{ position: 'absolute', top: 16, right: 16, background: 'rgba(0,0,0,0.5)', color: '#fff', padding: '6px 12px', borderRadius: 20, fontSize: 12, pointerEvents: 'none' }}>
+              Modifier l'arrière-plan
+            </div>
+            <input type="file" ref={coverPicRef} onChange={handleCoverPicChange} accept="image/*" style={{ display: 'none' }} />
+          </div>
+          
+          {/* Avatar & Basic Info */}
+          <div style={{ padding: '0 24px 24px', position: 'relative' }}>
+            <div 
+              onClick={() => profilePicRef.current.click()}
+              style={{ 
+              width: 120, height: 120, borderRadius: '50%', background: '#fff', 
+              padding: 4, marginTop: -60, position: 'relative', zIndex: 10,
+              boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)', cursor: 'pointer'
+            }}>
+              <div style={{ 
+                width: '100%', height: '100%', borderRadius: '50%', background: profilePicFile ? `url(${URL.createObjectURL(profilePicFile)})` : cvData.profilePicUrl ? `url(${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${cvData.profilePicUrl})` : '#5E42F5', 
+                backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                color: '#fff', fontSize: 40, fontWeight: 700 
+              }}>
+                {(!profilePicFile && !cvData.profilePicUrl) && (userName ? userName.charAt(0).toUpperCase() : 'U')}
+              </div>
+              <input type="file" ref={profilePicRef} onChange={handleProfilePicChange} accept="image/*" style={{ display: 'none' }} />
+            </div>
+            
+            <div style={{ marginTop: 16 }}>
+              <h1 style={{ fontSize: 24, fontWeight: 700, color: '#0B0D17', margin: '0 0 4px' }}>
+                {userName || 'Candidat'}
+              </h1>
+              <p style={{ fontSize: 16, color: '#4b5563', margin: 0, fontWeight: 500 }}>
+                {cvData.headline || 'Ajoutez un titre professionnel...'}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ── HEADER TITLE ── */}
         <div style={{ marginBottom: 32 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, color: '#378ADD', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 6px' }}>
+          <p style={{ fontSize: 11, fontWeight: 700, color: '#5E42F5', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 6px' }}>
             Espace Candidat
           </p>
-          <h1 style={{ fontSize: 28, fontWeight: 700, color: '#0C1F3C', letterSpacing: '-0.5px', margin: 0 }}>
+          <h2 style={{ fontSize: 24, fontWeight: 700, color: '#0B0D17', letterSpacing: '-0.5px', margin: 0 }}>
             Mon CV & Profil Numérique
-          </h1>
+          </h2>
           <p style={{ fontSize: 14, color: '#6b7280', marginTop: 4 }}>
             Complétez votre profil pour être visible par les recruteurs et postuler en un clic.
           </p>
@@ -346,10 +425,10 @@ export default function UploadCV() {
           </div>
         )}
 
-        <form onSubmit={handleSaveCV} style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 32, alignItems: 'start' }}>
+        <form onSubmit={handleSaveCV} style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
           
-          {/* ── LEFT COLUMN: FILE & LINKS ── */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+          {/* ── FILE & LINKS ── */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 24, order: 2 }}>
             
             {/* FILE UPLOAD CARD */}
             <div style={cardStyle}>
@@ -364,12 +443,12 @@ export default function UploadCV() {
                 onMouseOver={(e) => e.currentTarget.style.borderColor = '#378ADD'}
                 onMouseOut={(e) => e.currentTarget.style.borderColor = '#B5D4F4'}
               >
-                <div style={{ width: 40, height: 40, borderRadius: 10, background: '#E6F1FB', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#378ADD" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <div style={{ width: 40, height: 40, borderRadius: 10, background: '#F0EEFE', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5E42F5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" />
                   </svg>
                 </div>
-                <p style={{ fontSize: 13, fontWeight: 600, color: '#0C1F3C', margin: '0 0 4px' }}>
+                <p style={{ fontSize: 13, fontWeight: 600, color: '#0B0D17', margin: '0 0 4px' }}>
                   Téléverser un nouveau CV
                 </p>
                 <p style={{ fontSize: 11, color: '#9ca3af', margin: 0 }}>
@@ -397,7 +476,7 @@ export default function UploadCV() {
                       href={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${cvData.fileUrl}`} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      style={{ fontSize: 11, color: '#378ADD', fontWeight: 600, textDecoration: 'none' }}
+                      style={{ fontSize: 11, color: '#5E42F5', fontWeight: 600, textDecoration: 'none' }}
                     >
                       Voir
                     </a>
@@ -448,8 +527,8 @@ export default function UploadCV() {
 
           </div>
 
-          {/* ── RIGHT COLUMN: DIGITAL PROFILE BUILDER ── */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+          {/* ── DIGITAL PROFILE BUILDER ── */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 24, order: 1 }}>
             
             {/* GENERAL PROFILE INFORMATION */}
             <div style={cardStyle}>
@@ -590,8 +669,8 @@ export default function UploadCV() {
                   <div key={idx} style={itemStyle}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                       <div>
-                        <h4 style={{ fontSize: 14, fontWeight: 700, color: '#0C1F3C', margin: 0 }}>{exp.title}</h4>
-                        <span style={{ fontSize: 12, color: '#378ADD', fontWeight: 600 }}>{exp.company}</span>
+                        <h4 style={{ fontSize: 14, fontWeight: 700, color: '#0B0D17', margin: 0 }}>{exp.title}</h4>
+                        <span style={{ fontSize: 12, color: '#5E42F5', fontWeight: 600 }}>{exp.company}</span>
                         <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>
                           {formatDate(exp.startDate)} - {exp.isCurrent ? 'Présent' : formatDate(exp.endDate)}
                         </div>
@@ -658,8 +737,8 @@ export default function UploadCV() {
                   <div key={idx} style={itemStyle}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                       <div>
-                        <h4 style={{ fontSize: 14, fontWeight: 700, color: '#0C1F3C', margin: 0 }}>{ed.degree}</h4>
-                        <span style={{ fontSize: 12, color: '#378ADD', fontWeight: 600 }}>{ed.school}</span>
+                        <h4 style={{ fontSize: 14, fontWeight: 700, color: '#0B0D17', margin: 0 }}>{ed.degree}</h4>
+                        <span style={{ fontSize: 12, color: '#5E42F5', fontWeight: 600 }}>{ed.school}</span>
                         <div style={{ fontSize: 11, color: '#9ca3af', marginTop: 2 }}>
                           {formatDate(ed.startDate)} - {ed.isCurrent ? 'Présent' : formatDate(ed.endDate)}
                         </div>
@@ -702,40 +781,40 @@ export default function UploadCV() {
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
                 {cvData.languages.map((lang, idx) => (
                   <div key={idx} style={{ background: '#fff', border: '1px solid #eaecf0', borderRadius: 100, padding: '4px 14px', display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <span style={{ fontSize: 13, color: '#0C1F3C', fontWeight: 600 }}>{lang.name}</span>
-                    <span style={{ fontSize: 11, color: '#378ADD', background: '#E6F1FB', padding: '1px 6px', borderRadius: 100 }}>{lang.level}</span>
+                    <span style={{ fontSize: 13, color: '#0B0D17', fontWeight: 600 }}>{lang.name}</span>
+                    <span style={{ fontSize: 11, color: '#5E42F5', background: '#F0EEFE', padding: '1px 6px', borderRadius: 100 }}>{lang.level}</span>
                     <button type="button" onClick={() => removeLanguage(idx)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#ef4444', fontWeight: 'bold', fontSize: 14 }}>×</button>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* SAVE FORM BUTTONS */}
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 16 }}>
-              <button 
-                type="button" 
-                onClick={() => navigate('/jobs')} 
-                style={{
-                  padding: '12px 24px', fontSize: 15, fontWeight: 500, color: '#4b5563',
-                  background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit'
-                }}
-              >
-                Annuler
-              </button>
-              <button 
-                type="submit" 
-                disabled={saving}
-                style={{
-                  padding: '12px 32px', borderRadius: 10, background: '#378ADD',
-                  color: '#fff', border: 'none', fontSize: 15, fontWeight: 600,
-                  cursor: 'pointer', fontFamily: 'inherit',
-                  boxShadow: '0 4px 6px -1px rgba(55, 138, 221, 0.15)'
-                }}
-              >
-                {saving ? 'Enregistrement...' : 'Enregistrer mon Profil CV'}
-              </button>
-            </div>
+          </div>
 
+          {/* SAVE FORM BUTTONS */}
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 16, order: 3 }}>
+            <button 
+              type="button" 
+              onClick={() => navigate('/jobs')} 
+              style={{
+                padding: '12px 24px', fontSize: 15, fontWeight: 500, color: '#4b5563',
+                background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit'
+              }}
+            >
+              Annuler
+            </button>
+            <button 
+              type="submit" 
+              disabled={saving}
+              style={{
+                padding: '12px 32px', borderRadius: 10, background: '#5E42F5',
+                color: '#fff', border: 'none', fontSize: 15, fontWeight: 600,
+                cursor: 'pointer', fontFamily: 'inherit',
+                boxShadow: '0 4px 6px -1px rgba(94, 66, 245, 0.2)'
+              }}
+            >
+              {saving ? 'Enregistrement...' : 'Enregistrer mon Profil CV'}
+            </button>
           </div>
 
         </form>
@@ -756,7 +835,7 @@ const cardStyle = {
 const cardTitleStyle = {
   fontSize: 16,
   fontWeight: 700,
-  color: '#0C1F3C',
+  color: '#0B0D17',
   margin: 0,
 };
 
@@ -790,9 +869,9 @@ const tagStyle = {
   fontWeight: 500,
   padding: '4px 10px',
   borderRadius: 100,
-  background: '#E6F1FB',
-  color: '#0C447C',
-  border: '1px solid #B5D4F4',
+  background: '#F0EEFE',
+  color: '#5E42F5',
+  border: '1px solid #D9D2FC',
 };
 
 const tagCloseStyle = {
@@ -802,7 +881,7 @@ const tagCloseStyle = {
   padding: 0,
   fontSize: 14,
   fontWeight: 'bold',
-  color: '#0C447C',
+  color: '#5E42F5',
   lineHeight: 1,
 };
 
@@ -810,7 +889,7 @@ const btnInlineAdd = {
   width: 36,
   height: 36,
   borderRadius: 8,
-  background: '#0C1F3C',
+  background: '#0B0D17',
   color: '#fff',
   border: 'none',
   cursor: 'pointer',
@@ -841,7 +920,7 @@ const inlineFormStyle = {
 const btnSaveItem = {
   padding: '8px 16px',
   borderRadius: 8,
-  background: '#0C1F3C',
+  background: '#0B0D17',
   color: '#fff',
   border: 'none',
   fontSize: 12,

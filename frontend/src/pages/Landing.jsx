@@ -7,182 +7,190 @@ const SAMPLE_JOBS = [
   { id: 3, title: 'DevOps Engineer', company: 'CloudSys', location: 'Rabat', type: 'Full-time', skills: ['Kubernetes', 'CI/CD', 'AWS'], ago: '1j' },
 ];
 
-const FEATURES = [
-  {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#378ADD" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
-      </svg>
-    ),
-    title: 'Dépôt de CV',
-    desc: 'Téléversez votre CV, visible par les recruteurs.',
-  },
-  {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#378ADD" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-      </svg>
-    ),
-    title: 'Candidature rapide',
-    desc: 'Postulez en un clic avec votre profil.',
-  },
-  {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#378ADD" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-      </svg>
-    ),
-    title: 'Alertes emploi',
-    desc: 'Recevez les offres selon vos critères.',
-  },
-  {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#378ADD" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
-      </svg>
-    ),
-    title: 'Dashboard',
-    desc: 'Suivez vos candidatures en temps réel.',
-  },
-];
-
-const STATS = [
-  ['12 800', 'Offres actives'],
-  ['3 200', 'Entreprises'],
-  ['48 000', 'Candidats'],
-  ['91%', 'Satisfaction'],
-];
-
 export default function Landing() {
   const navigate = useNavigate();
 
   return (
-    <div style={{ fontFamily: 'Inter, system-ui, sans-serif', color: '#111', background: '#fff' }}>
+    <div style={{ fontFamily: 'Inter, system-ui, sans-serif', color: '#111', background: '#F8F9FA', minHeight: '100vh', overflowX: 'hidden' }}>
+      
+      {/* ── TOP NAVIGATION ── */}
+      <nav style={{ 
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center', 
+        padding: '24px 48px', maxWidth: 1400, margin: '0 auto' 
+      }}>
+        <div style={{ fontSize: 24, fontWeight: 800, color: '#111', letterSpacing: '-0.5px' }}>
+          JobBoard
+        </div>
+        
+        {/* User asked to remove the middle links (Home, About Us, etc.) */}
+        <div style={{ display: 'none' }}></div>
 
-      {/* ── HERO ── */}
-      <section style={{ background: '#0C1F3C', padding: '100px 2rem 80px', textAlign: 'center' }}>
-        <div style={{ maxWidth: 640, margin: '0 auto' }}>
-          <span style={{
-            display: 'inline-block', fontSize: 12, fontWeight: 600,
-            padding: '4px 14px', borderRadius: 100,
-            background: 'rgba(55,138,221,0.15)', color: '#85B7EB',
-            border: '1px solid rgba(55,138,221,0.25)',
-            letterSpacing: '0.05em', marginBottom: 28,
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <button 
+            onClick={() => navigate('/login')}
+            style={{ 
+              background: 'transparent', border: '1px solid #111', borderRadius: 24, 
+              padding: '10px 24px', fontSize: 15, fontWeight: 600, cursor: 'pointer', color: '#111' 
+            }}
+          >
+            Sign In
+          </button>
+          <button 
+            onClick={() => navigate('/register')}
+            style={{ 
+              background: '#5E42F5', border: 'none', borderRadius: 24, 
+              padding: '10px 24px', fontSize: 15, fontWeight: 600, cursor: 'pointer', color: '#fff' 
+            }}
+          >
+            Sign Up
+          </button>
+        </div>
+      </nav>
+
+      {/* ── HERO SECTION ── */}
+      <section style={{ 
+        position: 'relative', maxWidth: 1400, margin: '0 auto', padding: '40px 48px',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 40
+      }}>
+        
+        {/* Background Gradients */}
+        <div style={{ position: 'absolute', top: '-10%', left: '-5%', width: 600, height: 600, background: 'radial-gradient(circle, rgba(235,248,235,0.8) 0%, rgba(248,249,250,0) 70%)', zIndex: 0 }} />
+        <div style={{ position: 'absolute', top: '20%', right: '-5%', width: 800, height: 800, background: 'radial-gradient(circle, rgba(255,245,230,0.8) 0%, rgba(248,249,250,0) 70%)', zIndex: 0 }} />
+        <div style={{ position: 'absolute', bottom: '-20%', left: '30%', width: 600, height: 600, background: 'radial-gradient(circle, rgba(230,240,255,0.8) 0%, rgba(248,249,250,0) 70%)', zIndex: 0 }} />
+
+        {/* LEFT TEXT CONTENT */}
+        <div style={{ flex: '1.2', position: 'relative', zIndex: 10, paddingRight: 40 }}>
+          <h1 style={{ 
+            fontSize: 72, fontWeight: 800, color: '#111', lineHeight: 1.05, 
+            letterSpacing: '-2px', margin: '0 0 24px' 
           }}>
-            +50 offres publiées ce mois
-          </span>
-          <h1 style={{
-            fontSize: 48, fontWeight: 700, color: '#fff',
-            lineHeight: 1.15, letterSpacing: '-1px', margin: '0 0 20px',
-          }}>
-            Trouvez l'emploi qui vous<br />
-            <span style={{ color: '#378ADD' }}>correspond vraiment</span>
+            Trouvez l'emploi<br/>
+            qui vous <span style={{ color: '#5E42F5' }}>correspond<br/>vraiment</span>
           </h1>
-          <p style={{ fontSize: 17, color: '#8CA3BE', lineHeight: 1.75, margin: '0 auto 36px', maxWidth: 440 }}>
-            Des milliers d'offres tech, dev et IT. Déposez votre CV, postulez en un clic.
+          <p style={{ fontSize: 18, color: '#555', lineHeight: 1.6, margin: '0 0 40px', maxWidth: 480 }}>
+            Des milliers d'offres tech, dev et IT. Déposez votre CV, postulez en un clic. L'emploi idéal à portée de main.
           </p>
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button onClick={() => navigate('/register')} style={btnPrimary}>
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: 24, marginBottom: 60 }}>
+            <button 
+              onClick={() => navigate('/register')}
+              style={{ 
+                background: '#5E42F5', color: '#fff', border: 'none', borderRadius: 30, 
+                padding: '16px 36px', fontSize: 16, fontWeight: 600, cursor: 'pointer',
+                boxShadow: '0 8px 16px rgba(94, 66, 245, 0.25)'
+              }}
+            >
               Commencer gratuitement
             </button>
-            <button onClick={() => navigate('/jobs')} style={btnGhost}>
-              Voir les offres →
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* ── STATS ── */}
-      <div style={{ borderBottom: '1px solid #eaecf0', display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
-        {STATS.map(([n, l], i) => (
-          <div key={l} style={{
-            padding: '32px 52px', textAlign: 'center',
-            borderRight: i < STATS.length - 1 ? '1px solid #eaecf0' : 'none',
-          }}>
-            <div style={{ fontSize: 30, fontWeight: 700, color: '#0C1F3C', letterSpacing: '-1px' }}>{n}</div>
-            <div style={{ fontSize: 12, color: '#9ca3af', marginTop: 4, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{l}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* ── FEATURES ── */}
-      <section style={{ background: '#f7f9fc', padding: '80px 2rem' }}>
-        <div style={{ maxWidth: 880, margin: '0 auto' }}>
-          <h2 style={{ textAlign: 'center', fontSize: 28, fontWeight: 700, marginBottom: 48, letterSpacing: '-0.5px', color: '#0C1F3C' }}>
-            Tout ce dont vous avez besoin
-          </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: 20 }}>
-            {FEATURES.map(f => (
-              <div key={f.title} style={{
-                background: '#fff', borderRadius: 16,
-                border: '1px solid #eaecf0', padding: '28px 22px',
-              }}>
-                <div style={{
-                  width: 44, height: 44, borderRadius: 10,
-                  background: '#E6F1FB',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  marginBottom: 18,
-                }}>
-                  {f.icon}
-                </div>
-                <h3 style={{ fontWeight: 700, fontSize: 15, marginBottom: 8, color: '#0C1F3C', margin: '0 0 8px' }}>{f.title}</h3>
-                <p style={{ fontSize: 13.5, color: '#6b7280', lineHeight: 1.65, margin: 0 }}>{f.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── JOB LIST ── */}
-      <section style={{ padding: '80px 2rem' }}>
-        <div style={{ maxWidth: 720, margin: '0 auto' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 32, flexWrap: 'wrap', gap: 16 }}>
-            <div>
-              <p style={{ fontSize: 11, fontWeight: 700, color: '#378ADD', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 8px' }}>
-                Dernières offres
-              </p>
-              <h2 style={{ fontSize: 28, fontWeight: 700, margin: 0, letterSpacing: '-0.5px', color: '#0C1F3C' }}>Offres récentes</h2>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#333', fontSize: 14, fontWeight: 500 }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5E42F5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+              Assistance 24/7
             </div>
-            <button onClick={() => navigate('/jobs')} style={btnOutline}>Toutes les offres →</button>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {SAMPLE_JOBS.map(job => <JobCard key={job.id} job={job} />)}
+
+          {/* Floating cards at the bottom left */}
+          <div style={{ display: 'flex', gap: 20, alignItems: 'flex-end', marginTop: 40 }}>
+            {/* Dark Card */}
+            <div style={{ 
+              background: '#0B0D17', borderRadius: 16, padding: '32px 24px', 
+              color: '#fff', width: 220, textAlign: 'center', position: 'relative', zIndex: 20
+            }}>
+              <div style={{ fontSize: 14, fontWeight: 500, marginBottom: 24 }}>Nouvelle levée<br/>de fonds</div>
+              {/* Circular progress graphic */}
+              <div style={{ position: 'relative', width: 80, height: 80, margin: '0 auto 24px' }}>
+                <svg viewBox="0 0 36 36" style={{ width: '100%', height: '100%' }}>
+                  <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#333" strokeWidth="3" />
+                  <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#00E5FF" strokeWidth="3" strokeDasharray="75, 100" />
+                </svg>
+              </div>
+              <div style={{ fontSize: 36, fontWeight: 700, marginBottom: 8, letterSpacing: '-1px' }}>2.7k</div>
+              <div style={{ fontSize: 12, color: '#A0AAB2', lineHeight: 1.4 }}>D'un autre côté,<br/>finance d'entreprise</div>
+            </div>
+
+            {/* Purple Card */}
+            <div style={{ 
+              background: '#B3A4FF', borderRadius: 16, padding: '24px', 
+              width: 200, position: 'relative', zIndex: 20
+            }}>
+              <div style={{ fontSize: 24, fontWeight: 800, color: '#111', marginBottom: 4 }}>5000+</div>
+              <div style={{ fontSize: 14, color: '#333', fontWeight: 500, marginBottom: 24 }}>Candidats</div>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#FFC107', border: '2px solid #B3A4FF', marginLeft: 0 }} />
+                <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#E91E63', border: '2px solid #B3A4FF', marginLeft: -12 }} />
+                <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#111', border: '2px solid #B3A4FF', marginLeft: -12, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 18, fontWeight: 500 }}>+</div>
+              </div>
+            </div>
+            
+            {/* Rotating stamp graphic (simplified as static text/icon) */}
+            <div style={{ position: 'absolute', right: -40, bottom: 120, width: 120, height: 120, animation: 'spin 10s linear infinite' }}>
+               <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%' }}>
+                 <path id="curve" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" fill="transparent"/>
+                 <text width="500">
+                   <textPath href="#curve" style={{ fontSize: 12, fontWeight: 600, letterSpacing: 2 }}>
+                     PLANNING TODAY FOR A PROSPEROUS TOMORROW •
+                   </textPath>
+                 </text>
+                 <path d="M 50 35 L 50 65 M 35 50 L 65 50 M 39 39 L 61 61 M 39 61 L 61 39" stroke="#111" strokeWidth="2" />
+               </svg>
+               <style>
+                 {`@keyframes spin { 100% { transform: rotate(360deg); } }`}
+               </style>
+            </div>
           </div>
         </div>
+
+        {/* RIGHT GRAPHICS CONTENT */}
+        <div style={{ flex: '1', position: 'relative', height: 700 }}>
+          
+          {/* Main Character Image */}
+          <div style={{ 
+            position: 'absolute', top: 0, left: '10%', width: '80%', height: 450, 
+            background: 'transparent', borderRadius: 24,
+            display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden'
+          }}>
+            {/* The image is loaded from the public folder. Please ensure your image is named 'guy.jpg' and placed in the 'public' directory of the frontend. */}
+            <img 
+              src="/guy.jpg" 
+              alt="Candidat" 
+              style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.display = 'flex';
+              }}
+            />
+            {/* Fallback silhouette if image not found */}
+            <div style={{ display: 'none', width: '100%', height: '100%', background: '#e2e8f0', alignItems: 'flex-end', justifyContent: 'center' }}>
+                <svg width="200" height="250" viewBox="0 0 24 24" fill="#cbd5e1">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+            </div>
+          </div>
+
+        </div>
+
       </section>
 
-      {/* ── CTA BAND ── */}
-      <section style={{ background: '#0C1F3C', padding: '64px 2rem', textAlign: 'center' }}>
-        <h2 style={{ fontSize: 28, fontWeight: 700, color: '#fff', margin: '0 0 12px', letterSpacing: '-0.5px' }}>
-          Prêt à trouver votre prochain poste ?
-        </h2>
-        <p style={{ color: '#8CA3BE', fontSize: 16, margin: '0 0 28px' }}>
-          Rejoignez 48 000 candidats déjà inscrits.
-        </p>
-        <button onClick={() => navigate('/register')} style={btnPrimary}>
-          Créer un compte gratuitement
-        </button>
+      {/* ── BOTTOM STATS ROW ── */}
+      <section style={{ 
+        maxWidth: 1400, margin: '60px auto 100px', padding: '0 48px',
+        display: 'flex', justifyContent: 'flex-end', gap: 60, position: 'relative', zIndex: 10
+      }}>
+        <div>
+          <div style={{ fontSize: 40, fontWeight: 800, color: '#111', letterSpacing: '-1px' }}>49.4K</div>
+          <div style={{ fontSize: 14, color: '#555', marginTop: 4 }}>Téléchargements</div>
+        </div>
+        <div>
+          <div style={{ fontSize: 40, fontWeight: 800, color: '#111', letterSpacing: '-1px' }}>37K</div>
+          <div style={{ fontSize: 14, color: '#555', marginTop: 4 }}>Utilisateurs actifs</div>
+        </div>
+        <div>
+          <div style={{ fontSize: 40, fontWeight: 800, color: '#111', letterSpacing: '-1px' }}>1.2M+</div>
+          <div style={{ fontSize: 14, color: '#555', marginTop: 4 }}>Abonnés</div>
+        </div>
       </section>
 
     </div>
   );
 }
-
-const btnPrimary = {
-  padding: '13px 28px', borderRadius: 10,
-  background: '#378ADD', color: '#fff',
-  border: 'none', fontSize: 15, fontWeight: 600, cursor: 'pointer',
-};
-
-const btnGhost = {
-  padding: '13px 28px', borderRadius: 10,
-  background: 'transparent', color: '#fff',
-  border: '1px solid rgba(255,255,255,0.2)',
-  fontSize: 15, cursor: 'pointer',
-};
-
-const btnOutline = {
-  padding: '10px 20px', borderRadius: 8,
-  background: '#fff', border: '1px solid #d1d5db',
-  fontSize: 14, cursor: 'pointer', color: '#374151', fontWeight: 500,
-};

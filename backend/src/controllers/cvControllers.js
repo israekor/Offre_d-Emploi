@@ -9,10 +9,18 @@ exports.uploadCV = async (req, res) => {
     // Build update object
     let updateData = { ...req.body, candidate: userId }
 
-    // If there is an uploaded file, store its URL and name
-    if (req.file) {
-      updateData.fileUrl = `/uploads/${req.file.filename}`
-      updateData.fileName = req.file.originalname
+    // If there are uploaded files, store their URLs and names
+    if (req.files) {
+      if (req.files.cvFile) {
+        updateData.fileUrl = `/uploads/${req.files.cvFile[0].filename}`
+        updateData.fileName = req.files.cvFile[0].originalname
+      }
+      if (req.files.profilePic) {
+        updateData.profilePicUrl = `/uploads/${req.files.profilePic[0].filename}`
+      }
+      if (req.files.coverPic) {
+        updateData.coverPicUrl = `/uploads/${req.files.coverPic[0].filename}`
+      }
     }
 
     // Parse skills, experiences, education, languages, links if sent as stringified JSON (FormData)

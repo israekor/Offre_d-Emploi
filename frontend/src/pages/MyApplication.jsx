@@ -66,21 +66,21 @@ export default function MyApplication() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: '100vh', background: '#f7f9fc', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Inter, system-ui, sans-serif' }}>
         <p style={{ fontSize: 16, color: '#6b7280' }}>Chargement de vos candidatures...</p>
       </div>
     );
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f7f9fc', fontFamily: 'Inter, system-ui, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)', fontFamily: 'Inter, system-ui, sans-serif' }}>
 
       {/* ── TOPBAR ── */}
-      <div style={{ background: '#0C1F3C', padding: '0 2rem', position: 'sticky', top: 0, zIndex: 40 }}>
+      <div style={{ background: '#0B0D17', padding: '0 2rem', position: 'sticky', top: 0, zIndex: 40 }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <div onClick={() => navigate('/')} style={{ cursor: 'pointer', width: 28, height: 28, borderRadius: 6, background: '#185FA5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#85B7EB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <div onClick={() => navigate('/')} style={{ cursor: 'pointer', width: 28, height: 28, borderRadius: 6, background: '#5E42F5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
               </svg>
             </div>
@@ -88,8 +88,8 @@ export default function MyApplication() {
             {userName && (
               <>
                 <div style={{ width: 1, height: 16, background: 'rgba(255,255,255,0.15)', margin: '0 4px' }} />
-                <span style={{ fontSize: 13, color: '#8CA3BE' }}>
-                  Bonjour, <span style={{ color: '#85B7EB', fontWeight: 600 }}>{userName}</span>
+                <span style={{ fontSize: 13, color: '#A0AAB2' }}>
+                  Bonjour, <span style={{ color: '#FFFFFF', fontWeight: 600 }}>{userName}</span>
                 </span>
               </>
             )}
@@ -97,13 +97,13 @@ export default function MyApplication() {
 
           {/* Navigation Links for Authenticated Users */}
           <div style={{ display: 'flex', gap: 24 }}>
-            <Link to="/jobs" style={{ color: '#8CA3BE', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Offres</Link>
-            <Link to="/upload-cv" style={{ color: '#8CA3BE', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Profil</Link>
+            <Link to="/jobs" style={{ color: '#A0AAB2', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Offres</Link>
+            <Link to="/upload-cv" style={{ color: '#A0AAB2', textDecoration: 'none', fontSize: 13, fontWeight: 500, transition: 'color 0.2s' }}>Profil</Link>
             <Link to="/my-applications" style={{ color: '#fff', textDecoration: 'none', fontSize: 13, fontWeight: 600 }}>Mes candidatures</Link>
           </div>
 
           {userName && (
-            <button onClick={handleLogoutClick} style={{ fontSize: 13, color: '#8CA3BE', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
+            <button onClick={handleLogoutClick} style={{ fontSize: 13, color: '#A0AAB2', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
               Déconnexion →
             </button>
           )}
@@ -115,10 +115,10 @@ export default function MyApplication() {
         {/* ── HEADER ── */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 32, flexWrap: 'wrap', gap: 16 }}>
           <div>
-            <p style={{ fontSize: 11, fontWeight: 700, color: '#378ADD', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 6px' }}>
+            <p style={{ fontSize: 11, fontWeight: 700, color: '#5E42F5', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 6px' }}>
               Espace Candidat
             </p>
-            <h1 style={{ fontSize: 28, fontWeight: 700, color: '#0C1F3C', letterSpacing: '-0.5px', margin: 0 }}>
+            <h1 style={{ fontSize: 28, fontWeight: 700, color: '#0B0D17', letterSpacing: '-0.5px', margin: 0 }}>
               Mes Candidatures
             </h1>
           </div>
@@ -156,13 +156,13 @@ export default function MyApplication() {
         {/* ── APPLICATIONS LIST ── */}
         {applications.length === 0 ? (
           <div style={{ background: '#fff', border: '1px solid #eaecf0', borderRadius: 20, padding: '64px 24px', textAlign: 'center' }}>
-            <div style={{ width: 48, height: 48, borderRadius: 12, background: '#E6F1FB', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#378ADD" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+            <div style={{ width: 48, height: 48, borderRadius: 12, background: '#F0EEFE', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5E42F5" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
               </svg>
             </div>
             <p style={{ fontSize: 15, color: '#6b7280', marginBottom: 12 }}>Vous n'avez postulé à aucune offre pour le moment.</p>
-            <button onClick={() => navigate('/jobs')} style={{ fontSize: 14, color: '#378ADD', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
+            <button onClick={() => navigate('/jobs')} style={{ fontSize: 14, color: '#5E42F5', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
               Parcourir les offres d'emploi →
             </button>
           </div>
@@ -178,7 +178,7 @@ export default function MyApplication() {
                   {/* Left: Job detail info */}
                   <div style={{ flex: 1, minWidth: 280 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 8 }}>
-                      <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0C1F3C', margin: 0 }}>
+                      <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0B0D17', margin: 0 }}>
                         {jobInfo.title || 'Poste supprimé'}
                       </h3>
                       {jobInfo.contractType && (
@@ -188,7 +188,7 @@ export default function MyApplication() {
                       )}
                     </div>
                     
-                    <p style={{ fontSize: 14, color: '#378ADD', fontWeight: 600, margin: '0 0 4px' }}>
+                    <p style={{ fontSize: 14, color: '#5E42F5', fontWeight: 600, margin: '0 0 4px' }}>
                       {jobInfo.company?.name || '—'}
                     </p>
                     
@@ -245,10 +245,10 @@ export default function MyApplication() {
             
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
               <div>
-                <span style={{ fontSize: 11, fontWeight: 700, color: '#378ADD', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: '#5E42F5', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   Dossier de candidature
                 </span>
-                <h3 style={{ fontSize: 20, fontWeight: 700, color: '#0C1F3C', margin: '4px 0 0' }}>
+                <h3 style={{ fontSize: 20, fontWeight: 700, color: '#0B0D17', margin: '4px 0 0' }}>
                   {selectedApp.job?.title || 'Poste supprimé'}
                 </h3>
                 <p style={{ fontSize: 13, color: '#6b7280', marginTop: 2 }}>
@@ -282,7 +282,7 @@ export default function MyApplication() {
                 </div>
                 <div>
                   <span style={modalMetaLabel}>Date de soumission</span>
-                  <div style={{ fontSize: 13.5, color: '#0C1F3C', fontWeight: 600, marginTop: 4 }}>
+                  <div style={{ fontSize: 13.5, color: '#0B0D17', fontWeight: 600, marginTop: 4 }}>
                     {formatDate(selectedApp.createdAt)}
                   </div>
                 </div>
@@ -316,7 +316,7 @@ export default function MyApplication() {
                 type="button" 
                 onClick={() => setSelectedApp(null)} 
                 style={{
-                  padding: '10px 24px', borderRadius: 10, background: '#0C1F3C',
+                  padding: '10px 24px', borderRadius: 10, background: '#5E42F5',
                   color: '#fff', border: 'none', fontSize: 14, fontWeight: 600,
                   cursor: 'pointer', fontFamily: 'inherit'
                 }}
@@ -337,7 +337,7 @@ export default function MyApplication() {
 const btnPrimary = {
   padding: '10px 20px',
   borderRadius: 8,
-  background: '#0C1F3C',
+  background: '#5E42F5',
   color: '#fff',
   border: 'none',
   fontSize: 13.5,
@@ -368,7 +368,7 @@ const statLabelStyle = {
 const statValueStyle = {
   fontSize: 24,
   fontWeight: 800,
-  color: '#0C1F3C',
+  color: '#0B0D17',
   letterSpacing: '-0.5px'
 };
 
